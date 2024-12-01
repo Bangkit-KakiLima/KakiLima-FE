@@ -31,7 +31,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
         otpModel.setSessionManager(sessionManager)
         binding.btnSubmitFgPassword.setOnClickListener {
-            val email = binding.etForgotPassword.text.toString()
+            val email = binding.etEmail.text.toString()
             if (email != null) {
                 val intent = Intent(this, OtpForgotPasswordActivity::class.java)
                 otpModel.resendOtpForgotPassword(email) { success ->

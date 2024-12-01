@@ -83,7 +83,7 @@
                     android:textSize="14sp"
                     android:textColor="#000000" />
 
-                <TextView
+                <com.dicoding.ping.ui.CustomText
                     android:id="@+id/txtResendOtp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
