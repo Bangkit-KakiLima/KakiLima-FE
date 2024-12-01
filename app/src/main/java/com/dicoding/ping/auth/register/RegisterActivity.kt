@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.ping.API.RetrofitClient
 import com.dicoding.ping.auth.AuthRepository
+import com.dicoding.ping.auth.login.LoginActivity
 import com.dicoding.ping.auth.otp.OtpRegisterActivity
 import com.dicoding.ping.databinding.ActivityRegisterBinding
 import com.dicoding.ping.utils.SessionManager
@@ -37,8 +38,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.txtLogin.setOnClickListener {
-            val intentRegister = Intent(this, RegisterActivity::class.java)
-            startActivity(intentRegister)
+            val intentLogin = Intent(this, LoginActivity::class.java)
+            startActivity(intentLogin)
         }
 
         binding.btnRegister.setOnClickListener {
@@ -56,8 +57,8 @@ class RegisterActivity : AppCompatActivity() {
                                 sessionManager.saveEmail(email)
                                 AlertDialog.Builder(this).apply {
                                     setTitle("Yeah!")
-                                    setMessage("Akun dengan $email sudah jadi nih. Yuk, login dan belajar coding.")
-                                    setPositiveButton("Lanjut") { _, _ ->
+                                    setMessage("The account with $email has been successfully created. Please log in to continue.")
+                                    setPositiveButton("Continue") { _, _ ->
                                         finish()
                                         val intent = Intent(
                                             this@RegisterActivity,
@@ -71,8 +72,8 @@ class RegisterActivity : AppCompatActivity() {
                             } else {
                                 AlertDialog.Builder(this).apply {
                                     setTitle("Oops!")
-                                    setMessage("Akun dengan $email gagal dibuat. Coba lagi ya.")
-                                    setPositiveButton("Ulangi") { _, _ ->
+                                    setMessage("The account with $email failed to be created. Please try again.")
+                                    setPositiveButton("Retry") { _, _ ->
                                         startActivity(intentRegister)
                                         finish()
                                     }
@@ -84,7 +85,7 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                binding.etConfirmPassword.error = "Password tidak sama"
+                binding.etConfirmPassword.error = "Password is not the same"
             }
         }
     }
