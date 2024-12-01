@@ -38,9 +38,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
                     if (success) {
                         sessionManager.saveEmailForgotPassword(email)
                         AlertDialog.Builder(this).apply {
-                            setTitle("OTP Dikirim")
-                            setMessage("OTP telah dikirim ke email $email.")
-                            setPositiveButton("Lanjut") { _, _ ->
+                            setTitle("OTP Sent")
+                            setMessage("An OTP has been sent to your email $email.")
+                            setPositiveButton("Continue") { _, _ ->
                                 startActivity(intent)
                                 finish()
                             }
@@ -49,9 +49,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         }
                     } else {
                         AlertDialog.Builder(this).apply {
-                            setTitle("Gagal Mengirim OTP")
-                            setMessage("Gagal mengirim OTP. Coba lagi.")
-                            setPositiveButton("Coba Lagi", null)
+                            setTitle("Failed to Send OTP")
+                            setMessage("Failed to send OTP. Please try again.")
+                            setPositiveButton("Retry", null)
                             create()
                             show()
                         }

@@ -46,8 +46,8 @@ class NewPasswordActivity : AppCompatActivity() {
                 otpModel.resetPassowrd(otp_code, email, newPassword) { success ->
                     if (success == true) {
                         AlertDialog.Builder(this).apply {
-                            setTitle("Berhasil")
-                            setMessage("Password berhasil dirubah")
+                            setTitle("Success")
+                            setMessage("Password has been successfully changed.")
                             setPositiveButton("Login") { _, _ ->
                                 startActivity(intent)
                                 finish()
@@ -57,9 +57,9 @@ class NewPasswordActivity : AppCompatActivity() {
                         }
                     } else {
                         AlertDialog.Builder(this).apply {
-                            setTitle("Galgal")
-                            setMessage("Gagal merubah password. Silahkan coba lagi")
-                            setPositiveButton("Coba lagi", null)
+                            setTitle("Failed")
+                            setMessage("Failed to change password. Please try again.")
+                            setPositiveButton("Retry", null)
                             create()
                             show()
                         }

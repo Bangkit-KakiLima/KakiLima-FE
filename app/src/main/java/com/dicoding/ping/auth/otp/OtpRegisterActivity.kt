@@ -43,8 +43,8 @@ class OtpRegisterActivity : AppCompatActivity() {
                     if (success) {
                         AlertDialog.Builder(this).apply {
                             setTitle("Yeah!")
-                            setMessage("Akun dengan $email sudah jadi nih. Yuk, login segera")
-                            setPositiveButton("Lanjut") { _, _ ->
+                            setMessage("The account with $email has been successfully created. Please log in to continue.")
+                            setPositiveButton("Continue") { _, _ ->
                                 startActivity(intentLogin)
                                 finish()
                             }
@@ -53,9 +53,9 @@ class OtpRegisterActivity : AppCompatActivity() {
                         }
                     } else {
                         AlertDialog.Builder(this).apply {
-                            setTitle("Oops, verifikasi gagal!")
-                            setMessage("Akun dengan $email gagal verifikasi. Coba lagi ya.")
-                            setPositiveButton("Ulangi") { _, _ ->
+                            setTitle("Oops, verification failed!")
+                            setMessage("Account with $email failed verification. Please try again.")
+                            setPositiveButton("Retry") { _, _ ->
                                 finish()
                                 startActivity(intentOtp)
                                 finish()
@@ -74,17 +74,17 @@ class OtpRegisterActivity : AppCompatActivity() {
                 otpModel.resendOtp(email) { success ->
                     if (success) {
                         AlertDialog.Builder(this).apply {
-                            setTitle("OTP Dikirim Ulang")
-                            setMessage("OTP telah dikirim ulang ke $email.")
+                            setTitle("OTP Resent")
+                            setMessage("OTP has been resent to $email.")
                             setPositiveButton("OK", null)
                             create()
                             show()
                         }
                     } else {
                         AlertDialog.Builder(this).apply {
-                            setTitle("Gagal Mengirim Ulang OTP")
-                            setMessage("Gagal mengirim ulang OTP. Coba lagi.")
-                            setPositiveButton("Coba Lagi", null)
+                            setTitle("Failed to Resend OTP")
+                            setMessage("Failed to resend OTP. Try again.")
+                            setPositiveButton("Try again", null)
                             create()
                             show()
                         }

@@ -52,8 +52,8 @@ class LoginActivity : AppCompatActivity() {
             if (email.isEmpty() || password.isEmpty()) {
                 AlertDialog.Builder(this).apply {
                     setTitle("Opps!")
-                    setMessage("Email dan password salah")
-                    setPositiveButton("Ulangi", null)
+                    setMessage("Incorrect email and password")
+                    setPositiveButton("Repeat", null)
                     create()
                     show()
                 }
@@ -67,8 +67,8 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         AlertDialog.Builder(this).apply {
                             setTitle("Opps!")
-                            setMessage("Email dan password salah")
-                            setPositiveButton("Ulangi", null)
+                            setMessage("Incorrect email and password")
+                            setPositiveButton("Repeat", null)
                             create()
                             show()
                         }
