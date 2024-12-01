@@ -19,7 +19,6 @@ class MyButton @JvmOverloads constructor(
     init {
         background = ContextCompat.getDrawable(context, R.drawable.register_button_selector)
         setTextColor(ContextCompat.getColor(context, android.R.color.white))
-        textSize = 20f
         gravity = Gravity.CENTER
         isAllCaps = false
     }

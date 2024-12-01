@@ -19,9 +19,7 @@ class CustomViewText @JvmOverloads constructor(
 
     init {
         paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
         setTextColor(defaultColor)
-
         setOnClickListener(this)
     }
 

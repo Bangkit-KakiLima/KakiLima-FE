@@ -1,4 +1,3 @@
 package com.dicoding.ping.user.category.adapter
 
-class DrinkAdapter {
-}
+class DrinkAdapter

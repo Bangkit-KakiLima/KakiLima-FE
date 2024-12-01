@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintDimensionRatio="1:1" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.dicoding.ping.ui.BtnWellcome
             android:id="@+id/btnNext"
             android:layout_width="180dp"
             android:layout_height="55dp"

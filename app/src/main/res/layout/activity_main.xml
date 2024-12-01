@@ -114,7 +114,7 @@
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
-                    <Button
+                    <com.dicoding.ping.ui.ButtonWhite
                         android:id="@+id/btnSeeAll"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
@@ -124,7 +124,8 @@
                         android:text="@string/click_here"
                         android:theme="@style/CustomButtonStyle"
                         android:textColor="@color/blue"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:textAllCaps="false" />
                 </LinearLayout>
 
 
@@ -148,7 +149,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal">
 
-                <Button
+                <com.dicoding.ping.ui.MyButton
                     android:id="@+id/btnFood"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -158,9 +159,10 @@
                     android:text="@string/food"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="false"/>
 
-                <Button
+                <com.dicoding.ping.ui.MyButton
                     android:id="@+id/btnDrink"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -170,7 +172,8 @@
                     android:text="@string/drink"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="false" />
             </LinearLayout>
 
             <TextView

@@ -17,7 +17,6 @@ class CustomText @JvmOverloads constructor(
     init {
         background = ContextCompat.getDrawable(context, R.drawable.back_button_selector)
         setTextColor(Color.parseColor("#4DA0C1"))
-        textSize = 14f
         gravity = Gravity.CENTER
         isAllCaps = false
     }
