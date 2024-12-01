@@ -1,0 +1,112 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
+    <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+        <!-- Gambar Makanan -->
+        <ImageView
+                android:id="@+id/iv_food_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_food"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="8dp"/>
+
+        <!-- Nama Makanan -->
+        <TextView
+                android:id="@+id/tv_food_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_food_image"
+                android:layout_marginTop="8dp"
+                android:text="Sate-satean"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
+
+        <!-- Status (Buka/Tutup) -->
+        <TextView
+                android:id="@+id/tv_food_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_food_name"
+                android:layout_marginTop="4dp"
+                android:text="Buka"
+                android:textSize="14sp"
+                android:textColor="#0BE462"/>
+
+        <!-- Informasi Lokasi dan Detail -->
+        <LinearLayout
+                android:id="@+id/ll_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_food_status"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+            <!-- Ikon Lokasi -->
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_location"
+                />
+
+            <!-- Text Lokasi -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="2,5 km"
+                android:textSize="14sp"/>
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="16dp"
+                android:layout_height="0dp"/>
+
+            <!-- Ikon Waktu -->
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_time"/>
+
+            <!-- Text Waktu -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="25 mnt"
+                android:textSize="14sp"/>
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="16dp"
+                android:layout_height="0dp"/>
+
+            <!-- Ikon Rating -->
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_star"/>
+
+            <!-- Text Rating -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="4.5"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PING" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">#4DA0C1</item>
+        <item name="colorPrimaryDark">#33677B</item>
+    </style>
+
+    <!-- Warna untuk ikon pencarian -->
+    <style name="SearchViewTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">#4DA0C1</item>
+    </style>
+
+    <!-- Style for rounded corner images -->
+    <style name="RoundedCornerImage" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.RoundedCornerImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@android:color/white</item>
+    </style>
+
+
+    <style name="Theme.PING" parent="Base.Theme.PING" />
+</resources>
