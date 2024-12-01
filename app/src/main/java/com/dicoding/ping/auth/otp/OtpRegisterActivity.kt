@@ -53,7 +53,7 @@ class OtpRegisterActivity : AppCompatActivity() {
                         }
                     } else {
                         AlertDialog.Builder(this).apply {
-                            setTitle("Oops, verivkasi gagal!")
+                            setTitle("Oops, verifikasi gagal!")
                             setMessage("Akun dengan $email gagal verifikasi. Coba lagi ya.")
                             setPositiveButton("Ulangi") { _, _ ->
                                 finish()
