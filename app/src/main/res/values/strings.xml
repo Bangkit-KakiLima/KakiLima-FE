@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProjectCapstone</string>
+    <string name="app_name">Ping</string>
 
     <!-- weelcome -->
     <string name="tap_next">Tap Next</string>
@@ -85,26 +85,29 @@
     <string name="login_button">login button</string>
 
 
-    <!-- untuk activity_profile -->
+    <!-- activity_profile -->
     <string name="profile_picture">Profile Picture</string>
-    <string name="nama_icon">Nama Icon</string>
+    <string name="nama_icon">Name Icon</string>
     <string name="arrow_icon">Arrow Icon</string>
     <string name="email_icon">Email Icon</string>
     <string name="password_icon">Password Icon</string>
     <string name="phone_icon">Phone Icon</string>
+    <string name="address_icon">Address Icon</string>
 
-    <!-- Detail Produk -->
-    <string name="detail_produk_title">Detail Produk</string>
-    <string name="default_product_name">Nama Produk</string>
+    <!-- Detail Product -->
+    <string name="detail_produk_title">Product Details</string>
+    <string name="default_product_name">Product Name</string>
     <string name="default_product_price">Rp 10.000</string>
     <string name="default_rating">4.5</string>
     <string name="default_distance">2,5 km</string>
     <string name="rating_icon">Rating Icon</string>
+    <string name="default_merchant_name">Merchant Name</string>
+    <string name="default_address">Jl. Lorem Ipsum No. 123</string>
     <string name="distance_icon">Distance Icon</string>
-    <string name="status_open">Status: Buka</string>
-    <string name="description_label">Deskripsi</string>
+    <string name="status_open">Open</string>
+    <string name="status_closed">Closed</string>
+    <string name="description_label">Deskription</string>
     <string name="default_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec magna a libero.</string>
-    <string name="add_to_cart">Tambahkan ke Keranjang</string>
-
+    <string name="see_seller">See Seller</string>
 
 </resources>

@@ -8,7 +8,7 @@ import android.util.Patterns
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.ping.API.RetrofitClient
+import com.dicoding.ping.api.RetrofitClient
 import com.dicoding.ping.auth.AuthRepository
 import com.dicoding.ping.auth.login.LoginActivity
 import com.dicoding.ping.auth.otp.OtpRegisterActivity

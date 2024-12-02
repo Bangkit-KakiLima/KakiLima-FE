@@ -1,4 +1,4 @@
-package com.dicoding.projectcapstone.user
+package com.dicoding.ping.user
 
 data class UserDataResponse(
     val result: Result? = null,

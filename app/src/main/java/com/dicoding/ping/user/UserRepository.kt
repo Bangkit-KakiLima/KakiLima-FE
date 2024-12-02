@@ -1,6 +1,6 @@
 package com.dicoding.ping.user
 
-import com.dicoding.ping.API.ApiService
+import com.dicoding.ping.ApiService
 
 class UserRepository(private val apiService: ApiService)  {
     suspend fun getUserData() = apiService.getUserData("Bearer {Your Token}")

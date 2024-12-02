@@ -1,4 +1,4 @@
-package com.dicoding.ping.API
+package com.dicoding.ping
 
 import com.dicoding.ping.auth.login.LoginRequest
 import com.dicoding.ping.auth.login.LoginResponse
@@ -10,8 +10,9 @@ import com.dicoding.ping.auth.password.ForgotPasswordRequest
 import com.dicoding.ping.auth.password.ForgotPasswordResponse
 import com.dicoding.ping.auth.register.RegisterRequest
 import com.dicoding.ping.auth.register.RegisterResponse
+import com.dicoding.ping.locations.LocationResponse
+import com.dicoding.ping.user.UserDataResponse
 import retrofit2.http.POST
-import com.dicoding.projectcapstone.user.UserDataResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -37,4 +38,8 @@ interface ApiService {
         @Header("Authorization") authHeader: String
     ): UserDataResponse
 
+
+    //    Location
+    @GET("api/location")
+    suspend fun getAllLocations(): List<LocationResponse>
 }
