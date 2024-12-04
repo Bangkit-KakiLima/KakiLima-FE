@@ -1,10 +1,17 @@
 package com.dicoding.ping.auth.register
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableString
+import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
 import android.util.Patterns
+import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +31,7 @@ class RegisterActivity : AppCompatActivity() {
         RegisterModelFactory(repository)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -31,6 +39,45 @@ class RegisterActivity : AppCompatActivity() {
 
         repository = AuthRepository.getInstance(RetrofitClient.apiService)
         sessionManager = SessionManager(this)
+
+        val loginTextView = binding.txtLogin
+
+        // Membuat SpannableString untuk teks
+        val spannableStringSignUp = SpannableString("Log In")
+        loginTextView.text = spannableStringSignUp
+
+        binding.txtLogin.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
+
+                    // Ubah warna teks menjadi warna custom (#4DA0C1) dan tambahkan underline
+                    val spannableHover = SpannableString("Log In")
+                    spannableHover.setSpan(
+                        ForegroundColorSpan(Color.parseColor("#4DA0C1")),
+                        0,
+                        spannableHover.length,
+                        SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    spannableHover.setSpan(
+                        UnderlineSpan(),
+                        0,
+                        spannableHover.length,
+                        SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    binding.txtLogin.text = spannableHover
+                }
+                MotionEvent.ACTION_UP -> {
+                    // Kembalikan teks ke tampilan awal (tanpa warna biru dan underline)
+                    binding.txtLogin.text = SpannableString("Log In")
+                    binding.txtLogin.performClick() // Panggil performClick untuk aksesibilitas
+
+                    // Navigasi ke halaman Login
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            true
+        }
 
         setupView()
         setupAction()
