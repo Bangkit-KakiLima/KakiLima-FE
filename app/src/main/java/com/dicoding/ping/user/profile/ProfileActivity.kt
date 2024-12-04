@@ -3,10 +3,11 @@ package com.dicoding.ping.user.profile
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.dicoding.ping.LoadingActivity
+import com.dicoding.ping.ui.LoadingActivity
 import com.dicoding.ping.R
 import com.dicoding.ping.auth.login.LoginActivity
 import com.dicoding.ping.databinding.ActivityProfileBinding
@@ -31,11 +32,11 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_profile)
 
-        findViewById<LinearLayout>(R.id.edit_profile).setOnClickListener {
+        findViewById<TextView>(R.id.edit_profile).setOnClickListener {
             navigateToFragment(EditProfileFragment())
         }
 
-        findViewById<LinearLayout>(R.id.address).setOnClickListener {
+        findViewById<TextView>(R.id.address).setOnClickListener {
             navigateToFragment(EditAddressFragment())
         }
 

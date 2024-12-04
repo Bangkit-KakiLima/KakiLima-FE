@@ -71,9 +71,9 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
                     binding.txtResendOtp.text = SpannableString("Resend again")
                     binding.txtResendOtp.performClick() // Panggil performClick untuk aksesibilitas
 
-                    // Navigasi ke halaman New Password
-                    val intent = Intent(this, NewPasswordActivity::class.java)
-                    startActivity(intent)
+//                    // Navigasi ke halaman New Password
+//                    val intent = Intent(this, NewPasswordActivity::class.java)
+//                    startActivity(intent)
                 }
             }
             true

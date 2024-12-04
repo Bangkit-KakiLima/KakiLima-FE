@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">#4DA0C1</item>
         <item name="colorPrimaryDark">#33677B</item>
+        <item name="colorControlHighlight">@color/blue</item>
     </style>
 
     <!-- Warna untuk ikon pencarian -->

@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.ping.LoadingActivity
+import com.dicoding.ping.ui.LoadingActivity
 import com.dicoding.ping.R
 import com.dicoding.ping.user.locations.adapter.LokasiAdapter
 import com.dicoding.ping.api.RetrofitClient.apiService

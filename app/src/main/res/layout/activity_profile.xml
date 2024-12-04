@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".profile.ProfileActivity">
+    tools:context=".user.profile.ProfileActivity">
 
     <!-- Scrollable Content -->
     <ScrollView
@@ -196,6 +196,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:itemIconTint="@color/bottom_nav"
+        app:itemTextColor="@color/bottom_nav"
+        app:itemRippleColor="@color/your_ripple_color"
+        app:itemBackground="@drawable/bottom_nav"
         app:menu="@menu/bottom_navigation_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

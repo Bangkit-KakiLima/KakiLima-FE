@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.ping.LoadingActivity
+import com.dicoding.ping.ui.LoadingActivity
 import com.dicoding.ping.R
 import com.dicoding.ping.api.RetrofitClient.apiService
 import com.dicoding.ping.auth.login.LoginActivity

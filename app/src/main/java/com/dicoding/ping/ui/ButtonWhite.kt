@@ -16,7 +16,7 @@ class ButtonWhite @JvmOverloads constructor(
 ) : AppCompatButton(context, attrs, defStyleAttr) {
 
     init {
-        background = ContextCompat.getDrawable(context, R.drawable.button_white_selector)
+        background = ContextCompat.getDrawable(context, R.drawable.back_button_selector)
         setTextColor(Color.parseColor("#4DA0C1"))
         gravity = Gravity.CENTER
         isAllCaps = false

@@ -3,5 +3,6 @@
     <style name="Base.Theme.PING" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">#4DA0C1</item>
         <item name="colorPrimaryDark">#33677B</item>
+        <item name="colorControlHighlight">@color/your_ripple_color</item>
     </style>
 </resources>

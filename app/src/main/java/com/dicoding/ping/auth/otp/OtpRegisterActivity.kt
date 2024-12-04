@@ -104,11 +104,7 @@ class OtpRegisterActivity : AppCompatActivity() {
                         AlertDialog.Builder(this).apply {
                             setTitle("Oops, verification failed!")
                             setMessage("Account with $email failed verification. Please try again.")
-                            setPositiveButton("Retry") { _, _ ->
-                                finish()
-                                startActivity(intentOtp)
-                                finish()
-                            }
+                            setPositiveButton("Retry", null)
                             create()
                             show()
                         }

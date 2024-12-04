@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="125dp"
-        android:layout_height="184dp">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageLogo"
@@ -35,7 +35,7 @@
             android:text="@string/nama_makanan"
             android:textSize="14sp"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="3"
             android:textStyle="bold"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="7dp"
