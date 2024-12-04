@@ -1,4 +1,4 @@
-package com.dicoding.ping.user.category.drink
+package com.dicoding.ping.user.home.category.drink
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

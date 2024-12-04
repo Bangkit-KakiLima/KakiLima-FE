@@ -12,6 +12,7 @@ import com.dicoding.ping.auth.register.RegisterRequest
 import com.dicoding.ping.auth.register.RegisterResponse
 import com.dicoding.ping.locations.LocationResponse
 import com.dicoding.ping.user.UserDataResponse
+import com.dicoding.ping.user.home.product.GetAllProductResponse
 import retrofit2.http.POST
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -38,6 +39,9 @@ interface ApiService {
         @Header("Authorization") authHeader: String
     ): UserDataResponse
 
+    //    Product
+    @GET("product")
+    suspend fun getAllProducts(): GetAllProductResponse
 
     //    Location
     @GET("api/location")

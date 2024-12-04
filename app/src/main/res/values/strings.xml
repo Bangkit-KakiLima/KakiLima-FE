@@ -87,12 +87,20 @@
 
     <!-- activity_profile -->
     <string name="profile_picture">Profile Picture</string>
-    <string name="nama_icon">Name Icon</string>
-    <string name="arrow_icon">Arrow Icon</string>
-    <string name="email_icon">Email Icon</string>
-    <string name="password_icon">Password Icon</string>
-    <string name="phone_icon">Phone Icon</string>
-    <string name="address_icon">Address Icon</string>
+    <string name="nama_icon">Icon Name </string>
+    <string name="arrow_icon">Arrow Icon </string>
+    <string name="email_icon">Icon Email </string>
+    <string name="password_icon">Icon Password </string>
+    <string name="phone_icon">Icon Phone </string>
+    <string name="address_icon">Icon Address </string>
+    <string name="profil">Profile </string>
+    <string name="username">Rania Maulidina </string>
+    <string name="edit_profil">Edit Profile </string>
+    <string name="change_email">Email </string>
+    <string name="change_password">Change Password </string>
+    <string name="no_handphone">No.Handphone </string>
+    <string name="address">Address </string>
+    <string name="log_out">Log out </string>
 
     <!-- Detail Product -->
     <string name="detail_produk_title">Product Details</string>

@@ -1,4 +1,4 @@
-package com.dicoding.ping.user.category.food
+package com.dicoding.ping.user.home.category.food
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

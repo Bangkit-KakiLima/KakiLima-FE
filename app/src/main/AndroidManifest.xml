@@ -42,7 +42,7 @@
             android:name=".auth.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".user.category.drink.CategoryDrinkActivity"
+            android:name=".user.home.category.drink.CategoryDrinkActivity"
             android:exported="false" />
         <activity
             android:name=".user.category.CategoryActivity"
