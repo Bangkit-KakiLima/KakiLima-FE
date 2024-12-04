@@ -88,7 +88,7 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
             val otp_code = binding.etOtp.text.toString()
 
             if (binding.etOtp.error == null) {
-                if (otp_code == sessionManager.getOtpForgotPassword()) {
+                if(otp_code == sessionManager.getOtpForgotPassword()) {
                     AlertDialog.Builder(this).apply {
                         setTitle("Yeah!")
                         setMessage("OTP is correct")
@@ -123,7 +123,7 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
             val email = sessionManager.getEmailForgotPassword()
             if (email != null) {
                 otpModel.resendOtpForgotPassword(email) { success ->
-                    if (success) {
+                    if (success ) {
                         AlertDialog.Builder(this).apply {
                             setTitle("OTP Sent")
                             setMessage("OTP has been resent to $email.")
