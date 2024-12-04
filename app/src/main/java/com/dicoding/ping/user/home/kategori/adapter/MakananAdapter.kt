@@ -1,4 +1,4 @@
-package com.dicoding.ping.ui.adapter
+package com.dicoding.ping.user.home.kategori.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.ping.model.Minuman
 import com.dicoding.ping.R
+import com.dicoding.ping.user.home.kategori.model.Makanan
 
-class MinumanAdapter(private val minumanList: List<Minuman>) :
-    RecyclerView.Adapter<MinumanAdapter.ViewHolder>() {
+class MakananAdapter(private val makananList: List<Makanan>) :
+    RecyclerView.Adapter<MakananAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -19,15 +19,15 @@ class MinumanAdapter(private val minumanList: List<Minuman>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val minuman = minumanList[position]
-        holder.itemImage.setImageResource(minuman.imageResource)
-        holder.itemName.text = minuman.name
-        holder.itemDescription.text = minuman.description
-        holder.itemPrice.text = minuman.price
+        val makanan = makananList[position]
+        holder.itemImage.setImageResource(makanan.imageResource)
+        holder.itemName.text = makanan.name
+        holder.itemDescription.text = makanan.description
+        holder.itemPrice.text = makanan.price
     }
 
     override fun getItemCount(): Int {
-        return minumanList.size
+        return makananList.size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

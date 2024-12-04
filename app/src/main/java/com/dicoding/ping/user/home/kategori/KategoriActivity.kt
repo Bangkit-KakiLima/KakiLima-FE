@@ -1,4 +1,4 @@
-package com.dicoding.ping.kategori
+package com.dicoding.ping.user.home.kategori
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

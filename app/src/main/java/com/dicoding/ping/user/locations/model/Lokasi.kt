@@ -1,4 +1,4 @@
-package com.dicoding.ping.model
+package com.dicoding.ping.user.locations.model
 
 class Lokasi(
     @kotlin.jvm.JvmField val name: String,

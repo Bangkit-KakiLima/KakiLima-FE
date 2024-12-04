@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout.v214)
     implementation(libs.androidx.activity)
     implementation(libs.play.services.cast.framework)
+    implementation(libs.play.services.location)
 
 
     // Testing libraries

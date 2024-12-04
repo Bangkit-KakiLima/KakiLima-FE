@@ -1,4 +1,4 @@
-package com.dicoding.ping.model
+package com.dicoding.ping.user.home.kategori.model
 
 data class Makanan(
     val name: String,

@@ -1,4 +1,4 @@
-package com.dicoding.ping.kategori
+package com.dicoding.ping.user.home.kategori
 
 data class Kategori(
     val imageResource: Int,

@@ -1,4 +1,4 @@
-package com.dicoding.ping.locations
+package com.dicoding.ping.user.locations
 
 data class Merchant(
     val id: Int,

@@ -10,7 +10,7 @@ import com.dicoding.ping.auth.password.ForgotPasswordRequest
 import com.dicoding.ping.auth.password.ForgotPasswordResponse
 import com.dicoding.ping.auth.register.RegisterRequest
 import com.dicoding.ping.auth.register.RegisterResponse
-import com.dicoding.ping.locations.LocationResponse
+import com.dicoding.ping.user.locations.LocationResponse
 import com.dicoding.ping.user.UserDataResponse
 import com.dicoding.ping.user.home.product.GetAllProductResponse
 import retrofit2.http.POST

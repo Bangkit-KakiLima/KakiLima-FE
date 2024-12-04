@@ -1,4 +1,4 @@
-package com.dicoding.ping.kategori
+package com.dicoding.ping.user.home.kategori
 
 import android.view.LayoutInflater
 import android.view.View

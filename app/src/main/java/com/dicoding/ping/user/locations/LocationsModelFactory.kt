@@ -1,4 +1,4 @@
-package com.dicoding.ping.locations
+package com.dicoding.ping.user.locations
 
 import LocationsModel
 import androidx.lifecycle.ViewModel

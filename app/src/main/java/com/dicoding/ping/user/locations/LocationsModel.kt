@@ -2,8 +2,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dicoding.ping.locations.LocationResponse
-import com.dicoding.ping.locations.LocationsRepository
+import com.dicoding.ping.user.locations.LocationResponse
+import com.dicoding.ping.user.locations.LocationsRepository
 import kotlinx.coroutines.launch
 
 class LocationsModel(private val repository: LocationsRepository) : ViewModel() {

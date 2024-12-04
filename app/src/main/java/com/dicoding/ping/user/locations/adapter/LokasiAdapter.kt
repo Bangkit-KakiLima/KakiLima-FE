@@ -1,4 +1,4 @@
-package com.dicoding.ping.ui.adapter
+package com.dicoding.ping.user.locations.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.ping.R
-import com.dicoding.ping.model.Lokasi
+import com.dicoding.ping.user.locations.model.Lokasi
 
 class LokasiAdapter(private val lokasiList: ArrayList<Lokasi>) :
     RecyclerView.Adapter<LokasiAdapter.LokasiViewHolder>() {
