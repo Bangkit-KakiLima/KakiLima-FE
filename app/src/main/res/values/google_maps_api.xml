@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="api_endpoint">https://da33-103-47-133-132.ngrok-free.app/api/</string>
+    <string name="google_maps_key">APIIIIIIII</string>
 </resources>

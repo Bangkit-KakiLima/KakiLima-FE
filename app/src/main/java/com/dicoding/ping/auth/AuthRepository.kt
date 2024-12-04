@@ -1,8 +1,8 @@
 package com.dicoding.ping.auth
 
+import com.dicoding.ping.ApiService
 import com.dicoding.ping.auth.login.LoginRequest
 import com.dicoding.ping.auth.register.RegisterRequest
-import com.dicoding.ping.API.ApiService
 import com.dicoding.ping.auth.login.LoginResponse
 import com.dicoding.ping.auth.otp.OtpRequest
 import com.dicoding.ping.auth.otp.OtpResponse
@@ -11,7 +11,7 @@ import com.dicoding.ping.auth.otp.ResendOtpResponse
 import com.dicoding.ping.auth.password.ForgotPasswordRequest
 import com.dicoding.ping.auth.password.ForgotPasswordResponse
 import com.dicoding.ping.auth.register.RegisterResponse
-import com.dicoding.projectcapstone.user.UserDataResponse
+import com.dicoding.ping.user.UserDataResponse
 
 class AuthRepository(
     private val apiService: ApiService

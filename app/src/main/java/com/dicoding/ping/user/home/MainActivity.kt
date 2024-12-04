@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.ping.API.RetrofitClient
+import com.dicoding.ping.api.RetrofitClient
 import com.dicoding.ping.auth.login.LoginActivity
 import com.dicoding.ping.databinding.ActivityMainBinding
 import com.dicoding.ping.user.UserModel

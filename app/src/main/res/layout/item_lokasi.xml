@@ -30,7 +30,7 @@
                 android:id="@+id/text_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama Lokasi"
+                android:text="Location Name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -38,19 +38,19 @@
                 android:id="@+id/text_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jarak: 1.5 km" />
+                android:text="Distance: 1.5 km" />
 
             <TextView
                 android:id="@+id/text_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Waktu: 15 menit" />
+                android:text="Time: 15 menit" />
 
             <TextView
                 android:id="@+id/item_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Buka"
+                android:text="Open"
                 android:textSize="14sp" />
 
 
