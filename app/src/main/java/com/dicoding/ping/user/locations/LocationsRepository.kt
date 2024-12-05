@@ -1,6 +1,6 @@
 package com.dicoding.ping.user.locations
 
-import com.dicoding.ping.ApiService
+import com.dicoding.ping.api.ApiService
 
 class LocationsRepository(private val apiService: ApiService)  {
     suspend fun getAllLocations() = apiService.getAllLocations()

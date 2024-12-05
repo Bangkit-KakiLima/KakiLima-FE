@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.dicoding.ping"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.dicoding.ping"
@@ -49,6 +49,10 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.play.services.cast.framework)
     implementation(libs.play.services.location)
+    implementation(libs.play.services.contextmanager)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.media3.common.ktx)
 
 
     // Testing libraries

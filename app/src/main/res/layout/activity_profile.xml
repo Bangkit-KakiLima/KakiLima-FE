@@ -198,8 +198,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:itemIconTint="@color/bottom_nav"
         app:itemTextColor="@color/bottom_nav"
-        app:itemRippleColor="@color/your_ripple_color"
-        app:itemBackground="@drawable/bottom_nav"
+        app:itemRippleColor="@color/bottom_nav_ripple"
         app:menu="@menu/bottom_navigation_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

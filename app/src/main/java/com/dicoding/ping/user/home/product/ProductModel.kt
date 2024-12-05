@@ -8,11 +8,18 @@ import androidx.lifecycle.viewModelScope
 class ProductModel(private val repository: ProductRepository) : ViewModel() {
 
     val products: LiveData<List<DataItem>> = repository.products
+    val productsRecommendations: LiveData<List<DataItem>> = repository.productsRecommendations
     val errorMessage: LiveData<String> = repository.errorMessage
 
     fun fetchAllProducts() {
         viewModelScope.launch {
-            repository.getAllData()
+            repository.getAllProducts()
+        }
+    }
+
+    fun fetchAllProductsRecommendations() {
+        viewModelScope.launch {
+            repository.getAllRecommendationProducts()
         }
     }
 }

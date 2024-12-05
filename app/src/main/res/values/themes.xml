@@ -27,6 +27,5 @@
         <item name="android:backgroundTint">@android:color/white</item>
     </style>
 
-
     <style name="Theme.PING" parent="Base.Theme.PING" />
 </resources>

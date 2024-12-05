@@ -7,24 +7,31 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.ping.ui.LoadingActivity
+import com.bumptech.glide.Glide
 import com.dicoding.ping.R
+import com.dicoding.ping.api.RetrofitClient
 import com.dicoding.ping.api.RetrofitClient.apiService
 import com.dicoding.ping.auth.login.LoginActivity
 import com.dicoding.ping.databinding.ActivityMainBinding
-import com.dicoding.ping.user.home.kategori.KategoriMakananActivity
-import com.dicoding.ping.user.home.kategori.KategoriMinumanActivity
-import com.dicoding.ping.user.locations.LokasiActivity
+import com.dicoding.ping.ui.LoadingActivity
 import com.dicoding.ping.user.UserModel
 import com.dicoding.ping.user.UserModelFactory
 import com.dicoding.ping.user.UserRepository
-import com.dicoding.ping.user.home.product.ProductAdapter
-import com.dicoding.ping.user.home.product.ProductModel
-import com.dicoding.ping.user.home.product.ProductRepository
-import com.dicoding.ping.user.home.product.ProductViewModelFactory
-import com.dicoding.ping.user.profile.ProfileActivity
+import com.dicoding.ping.user.home.kategori.KategoriMakananActivity
+import com.dicoding.ping.user.home.kategori.KategoriMinumanActivity
+import com.dicoding.ping.user.home.product.AllProductAdapter
+import com.dicoding.ping.user.home.product.ProductRecomendationAdapter
 import com.dicoding.ping.utils.Helper
 import com.dicoding.ping.utils.SessionManager
+import com.dicoding.ping.user.home.product.ProductRepository
+import com.dicoding.ping.user.home.product.ProductViewModelFactory
+import com.dicoding.ping.user.locations.LokasiActivity
+import com.dicoding.ping.banner.BannerFactory
+import com.dicoding.ping.banner.BannerModel
+import com.dicoding.ping.banner.BannerRepository
+import com.dicoding.ping.banner.Weather
+import com.dicoding.ping.user.home.product.ProductModel
+import com.dicoding.ping.user.profile.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +41,34 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userRepository: UserRepository
     private lateinit var sessionManager: SessionManager
 
+    private val category = listOf("Hujan", "Mendung", "Panas", "Cerah")
+    private val weatherData = listOf(
+        Weather(
+            id = 1,
+            category = "Hujan",
+            description = "Cuaca hujan bikin suasana lebih nyaman, ayo lengkapi harimu dengan yang terbaik! Jangan sampai terlewat.",
+            imageUrl = "https://i.pinimg.com/736x/7a/44/19/7a44199aff3fd42c45b1807feb518fa4.jpg"
+        ),
+        Weather(
+            id = 2,
+            category = "Mendung",
+            description = "Langit mendung, tapi semangat tetap harus cerah! Buat harimu lebih seru dengan hal istimewa ini!",
+            imageUrl = "https://i.pinimg.com/736x/28/85/71/28857188f7a6757d5dba9d3f339f1bec.jpg"
+        ),
+        Weather(
+            id = 3,
+            category = "Panas",
+            description = "Cuaca panas? Waktunya cari sesuatu yang bikin segar dan nyaman. Yuk, jangan tunggu lama-lama!",
+            imageUrl = "https://i.pinimg.com/736x/b9/39/79/b939794266cf899fbbd55435efd2a402.jpg"
+        ),
+        Weather(
+            id = 4,
+            category = "Cerah",
+            description = "Matahari bersinar terang, saatnya menikmati hari dengan penuh semangat. Temukan pilihan yang bikin harimu lebih spesial!",
+            imageUrl = "https://i.pinimg.com/736x/ff/08/a6/ff08a64470b936483bc51b823cb726eb.jpg"
+        )
+    )
+
     private val userModel: UserModel by viewModels {
         UserModelFactory(userRepository)
     }
@@ -42,20 +77,31 @@ class MainActivity : AppCompatActivity() {
         ProductViewModelFactory(ProductRepository(apiService))
     }
 
+    private val bannerModel: BannerModel by viewModels {
+        BannerFactory(BannerRepository(apiService))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userRepository = UserRepository.getInstance(apiService)
+        // Initialize RetrofitClient with application context
+        RetrofitClient.initialize(applicationContext)
+
+        // Initialize the sessionManager and userRepository properties
         sessionManager = SessionManager(this)
+        userRepository = UserRepository.getInstance(apiService)
+
         userModel.setSessionManager(sessionManager)
 
         if (!sessionManager.getIsLogin()) {
             navigateToLogin()
         } else {
             val isHorizontal = true
-            setupRecyclerView(isHorizontal)
+            productRecommendationAdapter(isHorizontal)
+            allProductAdapter(isHorizontal)
+            setupViewBaner()
             setupAction()
         }
 
@@ -98,14 +144,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         productViewModel.fetchAllProducts()
+        productViewModel.fetchAllProductsRecommendations()
     }
 
     private fun navigateToLogin() {
         navigateWithLoading(LoginActivity::class.java)
     }
 
-    private fun setupRecyclerView(isHorizontal: Boolean) {
-        val productAdapter = ProductAdapter(
+    private fun productRecommendationAdapter(isHorizontal: Boolean) {
+        val productAdapter = ProductRecomendationAdapter(
             events = listOf(),
             onItemClick = { dataItem ->
                 Log.d(
@@ -128,13 +175,64 @@ class MainActivity : AppCompatActivity() {
             setHasFixedSize(true)
         }
 
-        productViewModel.products.observe(this) { productList ->
+        productViewModel.productsRecommendations.observe(this) { productList ->
             productList?.let {
                 productAdapter.updateData(it)
             } ?: run {
                 Log.d("MainActivity", "Product list is null or empty")
             }
         }
+    }
+
+    private fun allProductAdapter(isHorizontal: Boolean) {
+        val allProductAdapter = AllProductAdapter(
+            events = listOf(),
+            onItemClick = { dataItem ->
+                Log.d(
+                    "MainActivity",
+                    "Clicked item: ${dataItem.image?.let { helper.removePath(it) }}"
+                )
+                Toast.makeText(this, "Clicked: ${dataItem.name}", Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        val layoutManager = if (isHorizontal) {
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        } else {
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        }
+
+        binding.rvPopular.apply {
+            this.layoutManager = layoutManager
+            adapter = allProductAdapter
+            setHasFixedSize(true)
+        }
+
+        productViewModel.products.observe(this) { productList ->
+            productList?.let {
+                allProductAdapter.updateData(it)
+            } ?: run {
+                Log.d("MainActivity", "Product list is null or empty")
+            }
+        }
+    }
+
+
+    fun setupViewBaner() {
+        val handler = android.os.Handler()
+        val runnable = object : Runnable {
+            override fun run() {
+                val category = category.random()
+                weatherData.forEach {
+                    if (it.category == category) {
+                        Glide.with(this@MainActivity).load(it.imageUrl).into(binding.imgBackground)
+                        binding.txtWeatherMessage.text = it.description
+                    }
+                }
+                handler.postDelayed(this, 5000) // Interval 5 detik
+            }
+        }
+        handler.post(runnable)
     }
 
     private fun navigateWithLoading(targetActivity: Class<*>) {

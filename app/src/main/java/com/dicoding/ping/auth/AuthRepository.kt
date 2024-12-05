@@ -1,6 +1,6 @@
 package com.dicoding.ping.auth
 
-import com.dicoding.ping.ApiService
+import com.dicoding.ping.api.ApiService
 import com.dicoding.ping.auth.login.LoginRequest
 import com.dicoding.ping.auth.register.RegisterRequest
 import com.dicoding.ping.auth.login.LoginResponse

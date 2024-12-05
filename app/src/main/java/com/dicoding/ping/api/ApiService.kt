@@ -1,4 +1,4 @@
-package com.dicoding.ping
+package com.dicoding.ping.api
 
 import com.dicoding.ping.auth.login.LoginRequest
 import com.dicoding.ping.auth.login.LoginResponse
@@ -42,6 +42,9 @@ interface ApiService {
     //    Product
     @GET("product")
     suspend fun getAllProducts(): GetAllProductResponse
+
+    @GET("product/recommendations")
+    suspend fun getAllRecommendationProducts(): GetAllProductResponse
 
     //    Location
     @GET("api/location")
