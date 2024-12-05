@@ -8,9 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.dicoding.ping.R
-
+import androidx.navigation.fragment.findNavController
 
 class FragmentVerifyOtp : Fragment() {
 
