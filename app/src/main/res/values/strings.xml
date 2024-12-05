@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Ping</string>
 
-    <!-- weelcome -->
+    <!-- welcome -->
     <string name="tap_next">Tap Next</string>
     <string name="logo_description">logo description</string>
     <string name="wellcome">Wellcome</string>
