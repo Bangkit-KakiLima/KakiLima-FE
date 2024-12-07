@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     private lateinit var sessionManager: SessionManager
-    private const val BASE_URL = "https://cf7f-182-253-124-171.ngrok-free.app/api/"
+    private const val BASE_URL = "https://kakilima-be-780530589771.asia-southeast2.run.app/api/"
 
     fun initialize(context: Context) {
         sessionManager = SessionManager(context)

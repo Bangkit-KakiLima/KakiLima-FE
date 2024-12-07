@@ -1,15 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.PING" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">#4DA0C1</item>
-        <item name="colorPrimaryDark">#33677B</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorControlHighlight">@color/blue</item>
     </style>
 
     <!-- Warna untuk ikon pencarian -->
     <style name="SearchViewTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">#4DA0C1</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
     <!-- Style for rounded corner images -->
@@ -18,13 +17,23 @@
         <item name="cornerSize">8dp</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.RoundedCornerImage" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
+    <!-- Custom BottomNavigationView style -->
+    <style name="CustomBottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/blue</item>
+        <item name="itemTextColor">@color/blue</item>
+        <item name="itemRippleColor">@color/blue</item>
+        <item name="android:backgroundTint">@color/colorPrimary</item>
     </style>
 
+    <!-- Custom Button style -->
     <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">@android:color/white</item>
+    </style>
+
+    <!-- Style for ProgressBar -->
+    <style name="CustomProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/blue</item>
+        <item name="android:indeterminateTintMode">src_in</item>
     </style>
 
     <style name="Theme.PING" parent="Base.Theme.PING" />
