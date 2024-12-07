@@ -49,7 +49,7 @@
                 android:background="@drawable/btn_kategori_makanan_normal"
                 android:contentDescription="@string/profile_picture"
                 android:padding="8dp"
-                android:src="@drawable/ic_person" />
+                android:src="@drawable/ic_person1" />
 
             <!-- Profile Name -->
             <TextView
@@ -82,7 +82,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:contentDescription="@string/nama_icon"
-                        android:src="@drawable/ic_person1" />
+                        android:src="@drawable/ic_person" />
 
                     <TextView
                         android:layout_width="0dp"

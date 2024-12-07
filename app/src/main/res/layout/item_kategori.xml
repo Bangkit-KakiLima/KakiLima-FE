@@ -96,8 +96,6 @@
                 android:textColor="@android:color/black" />
         </LinearLayout>
 
-
-
         <!-- Price -->
         <TextView
                 android:id="@+id/item_price"
@@ -123,6 +121,5 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#00C853" />
-
 
 </LinearLayout>

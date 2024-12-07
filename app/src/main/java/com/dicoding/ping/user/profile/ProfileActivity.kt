@@ -2,7 +2,6 @@ package com.dicoding.ping.user.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +16,6 @@ import com.dicoding.ping.user.UserModelFactory
 import com.dicoding.ping.user.UserRepository
 import com.dicoding.ping.user.home.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
