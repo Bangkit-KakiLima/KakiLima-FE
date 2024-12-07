@@ -38,9 +38,7 @@ interface ApiService {
     suspend fun resetPassword(@Body request: ForgotPasswordRequest): ForgotPasswordResponse
 
     @GET("auth/userData")
-    suspend fun getUserData(
-        @Header("Authorization") authHeader: String
-    ): UserDataResponse
+    suspend fun getUserData(): UserDataResponse
 
     //    Product
     @GET("product")
@@ -52,7 +50,11 @@ interface ApiService {
     @GET("product/{id}")
     suspend fun getProductById(@Path("id") id: Int): Response<ProductDetail>
 
+    @GET("product/category/{category}")
+    suspend fun getProductsByCategory(@Path("category") category: String): GetAllProductResponse
+
     //    Location
     @GET("api/location")
     suspend fun getAllLocations(): List<LocationResponse>
+
 }

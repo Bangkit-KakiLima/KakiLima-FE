@@ -20,7 +20,7 @@ class LoadingActivity : AppCompatActivity() {
         if (targetIntent != null) {
             // Tambahkan delay untuk melihat loading screen
             Handler(Looper.getMainLooper()).postDelayed({
-                targetIntent?.let {
+                targetIntent.let {
                     startActivity(it)
                     finish() // Menutup LoadingActivity setelah halaman tujuan dimulai
                 } ?: run {

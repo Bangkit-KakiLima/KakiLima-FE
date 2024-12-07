@@ -227,7 +227,7 @@ class MainActivity : AppCompatActivity() {
 
     //    fun setupViewBaner()
     private fun setupViewBanner(){
-        val handler = android.os.Handler()
+        val handler = Handler()
         val runnable = object : Runnable {
             override fun run() {
                 val category = category.random()

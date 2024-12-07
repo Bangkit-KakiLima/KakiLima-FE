@@ -20,9 +20,10 @@ class LoginModel(private val repository: AuthRepository) : ViewModel() {
                 Log.d("Login model 1", "Email: $email, Password: $password")
                 val result = repository.login(email, password)
                 if (result.success == true) {
-                    val userData = result.result?.token?.let { repository.getUserData(it) }
+                    result.result?.token?.let { sessionManager.saveToken(it) }
+                    val userData = result.result?.token?.let { repository.getUserData() }
                     if (userData != null) {
-                        if (userData.result?.is_verified == true) {
+                        if(userData.result?.is_verified == true) {
                             userData.result.id?.let { sessionManager.saveUserId(it) }
                             userData.result.username?.let { sessionManager.saveUsername(it) }
                             userData.result.email?.let { sessionManager.saveEmailUser(it) }

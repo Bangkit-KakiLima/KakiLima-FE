@@ -129,33 +129,37 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.txtForgotPassword.setOnClickListener {
-            val intentForgotPasword = Intent(this, ForgotPasswordActivity::class.java)
-            startActivity(intentForgotPasword)
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+
         }
 
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
-            Log.d("setupAction Login 2", "setupAction: $email, $password")
             if (email.isEmpty() || password.isEmpty()) {
                 AlertDialog.Builder(this).apply {
-                    setTitle("Opps!")
+                    setTitle("Oops!")
                     setMessage("Incorrect email and password")
                     setPositiveButton("Repeat", null)
                     create()
                     show()
                 }
             } else {
+                // Tampilkan loading di tombol
                 binding.btnLogin.showLoading(true)
+
                 loginModel.login(email, password) { success ->
+                    // Sembunyikan loading di tombol
                     binding.btnLogin.showLoading(false)
+
                     if (success) {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
                         AlertDialog.Builder(this).apply {
-                            setTitle("Opps!")
+                            setTitle("Oops!")
                             setMessage("Incorrect email and password")
                             setPositiveButton("Repeat", null)
                             create()

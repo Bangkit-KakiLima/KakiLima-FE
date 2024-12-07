@@ -37,17 +37,22 @@ class OtpRegisterActivity : AppCompatActivity() {
         repository = AuthRepository.getInstance(RetrofitClient.apiService)
         sessionManager = SessionManager(this)
 
+        setupSpannableText()
+        setupAction()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupSpannableText() {
         val resendOtpTextView = binding.txtResendOtp
 
-        // Membuat SpannableString untuk teks
+        // Membuat SpannableString untuk teks "Resend again"
         val spannableStringSignUp = SpannableString("Resend again")
         resendOtpTextView.text = spannableStringSignUp
 
-        binding.txtResendOtp.setOnTouchListener { _, event ->
+        // Menambahkan efek hover pada teks "Resend again"
+        resendOtpTextView.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
-
-                    // Ubah warna teks menjadi warna custom (#4DA0C1) dan tambahkan underline
                     val spannableHover = SpannableString("Resend again")
                     spannableHover.setSpan(
                         ForegroundColorSpan(Color.parseColor("#4DA0C1")),
@@ -61,53 +66,44 @@ class OtpRegisterActivity : AppCompatActivity() {
                         spannableHover.length,
                         SPAN_EXCLUSIVE_EXCLUSIVE
                     )
-                    binding.txtResendOtp.text = spannableHover
+                    resendOtpTextView.text = spannableHover
                 }
                 MotionEvent.ACTION_UP -> {
-                    // Kembalikan teks ke tampilan awal (tanpa warna biru dan underline)
-                    binding.txtResendOtp.text = SpannableString("Resend again")
-                    binding.txtResendOtp.performClick() // Panggil performClick untuk aksesibilitas
+                    resendOtpTextView.text = SpannableString("Resend again")
+                    resendOtpTextView.performClick()
                 }
             }
             true
         }
-
-        setupAction()
     }
 
     private fun setupAction() {
         binding.btnVerify.setOnClickListener {
-//            val intentOtp = Intent(this, OtpRegisterActivity::class.java)
-            val intentLogin = Intent(this, LoginActivity::class.java)
             val email = sessionManager.getEmail()
-            val otp_code = binding.etOtp.text.toString()
-            Log.d("setupAction", "setupAction: $email, $otp_code")
+            val otp_code = "${binding.etBox1.text}${binding.etBox2.text}${binding.etBox3.text}" +
+                    "${binding.etBox4.text}${binding.etBox5.text}${binding.etBox6.text}"
 
-            if (email != null && binding.etOtp.error == null) {
+            if (email != null && otp_code.length == 6) {
                 binding.btnVerify.showLoading(true)
                 otpModel.verify(email, otp_code) { success ->
                     binding.btnVerify.showLoading(false)
                     if (success) {
                         AlertDialog.Builder(this).apply {
-                            setTitle("Yeah!")
+                            setTitle("Success!")
                             setMessage("The account with $email has been successfully created. Please log in to continue.")
                             setPositiveButton("Continue") { _, _ ->
-                                startActivity(intentLogin)
+                                startActivity(Intent(this@OtpRegisterActivity, LoginActivity::class.java))
                                 finish()
                             }
                             create()
                             show()
                         }
                     } else {
-                        AlertDialog.Builder(this).apply {
-                            setTitle("Oops, verification failed!")
-                            setMessage("Account with $email failed verification. Please try again.")
-                            setPositiveButton("Retry", null)
-                            create()
-                            show()
-                        }
+                        showErrorDialog("Verification failed! Please try again.")
                     }
                 }
+            } else {
+                showErrorDialog("Please enter a valid 6-digit OTP code.")
             }
         }
 
@@ -118,22 +114,28 @@ class OtpRegisterActivity : AppCompatActivity() {
                     if (success) {
                         AlertDialog.Builder(this).apply {
                             setTitle("OTP Resent")
-                            setMessage("OTP has been resent to $email.")
+                            setMessage("A new OTP code has been sent to $email.")
                             setPositiveButton("OK", null)
                             create()
                             show()
                         }
                     } else {
-                        AlertDialog.Builder(this).apply {
-                            setTitle("Failed to Resend OTP")
-                            setMessage("Failed to resend OTP. Try again.")
-                            setPositiveButton("Try again", null)
-                            create()
-                            show()
-                        }
+                        showErrorDialog("Failed to resend OTP. Please try again.")
                     }
                 }
+            } else {
+                showErrorDialog("Email is not available. Please login again.")
             }
+        }
+    }
+
+    private fun showErrorDialog(message: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle("Error")
+            setMessage(message)
+            setPositiveButton("OK", null)
+            create()
+            show()
         }
     }
 }

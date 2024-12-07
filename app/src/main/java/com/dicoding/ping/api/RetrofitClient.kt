@@ -9,6 +9,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
     private lateinit var sessionManager: SessionManager
     private const val BASE_URL = "https://kakilima-be-780530589771.asia-southeast2.run.app/api/"
+    private const val BASE_IP = "https://kakilima-be-780530589771.asia-southeast2.run.app/"
+
+    fun getBaseIp(): String {
+        return BASE_IP
+    }
 
     fun initialize(context: Context) {
         sessionManager = SessionManager(context)

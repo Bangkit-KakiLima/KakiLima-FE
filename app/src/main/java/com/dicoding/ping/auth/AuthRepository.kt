@@ -2,7 +2,6 @@ package com.dicoding.ping.auth
 
 import com.dicoding.ping.api.ApiService
 import com.dicoding.ping.auth.login.LoginRequest
-import com.dicoding.ping.auth.register.RegisterRequest
 import com.dicoding.ping.auth.login.LoginResponse
 import com.dicoding.ping.auth.otp.OtpRequest
 import com.dicoding.ping.auth.otp.OtpResponse
@@ -10,6 +9,7 @@ import com.dicoding.ping.auth.otp.ResendOtpRequest
 import com.dicoding.ping.auth.otp.ResendOtpResponse
 import com.dicoding.ping.auth.password.ForgotPasswordRequest
 import com.dicoding.ping.auth.password.ForgotPasswordResponse
+import com.dicoding.ping.auth.register.RegisterRequest
 import com.dicoding.ping.auth.register.RegisterResponse
 import com.dicoding.ping.user.UserDataResponse
 
@@ -46,8 +46,8 @@ class AuthRepository(
         return apiService.resetPassword(request)
     }
 
-    suspend fun getUserData(token: String): UserDataResponse {
-        return apiService.getUserData("Bearer $token")
+    suspend fun getUserData(): UserDataResponse {
+        return apiService.getUserData()
     }
 
     companion object {

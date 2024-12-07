@@ -51,7 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="24dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -63,16 +64,96 @@
                     android:textColor="#000000"
                     android:text="@string/enter_the_4_digit_code_sent_to_your_email" />
 
-                <EditText
+                <!-- Container for Input Boxes -->
+                <LinearLayout
                     android:id="@+id/etOtp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_text_background"
-                    android:padding="15dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginTop="4dp"
-                    android:hint="@string/enter_otp" />
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:weightSum="6">
+
+                    <!-- Individual Boxes -->
+                    <EditText
+                        android:id="@+id/etBox1"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/box_background"
+                        android:gravity="center"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/etBox2"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/box_background"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:imeOptions="actionNext" />
+
+                    <EditText
+                        android:id="@+id/etBox3"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/box_background"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:imeOptions="actionNext" />
+
+                    <EditText
+                        android:id="@+id/etBox4"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/box_background"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:imeOptions="actionNext" />
+
+                    <EditText
+                        android:id="@+id/etBox5"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/box_background"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:imeOptions="actionNext" />
+
+                    <EditText
+                        android:id="@+id/etBox6"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/box_background"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:imeOptions="actionDone" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -96,8 +177,6 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textStyle="bold" />
-
-
             </LinearLayout>
         </ScrollView>
 
