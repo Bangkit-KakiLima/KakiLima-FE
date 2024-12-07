@@ -1,15 +1,15 @@
 package com.dicoding.ping.user.locations
 
-import LocationsModel
+import LocationModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class LocationsModelFactory(
-    private val repository: LocationsRepository
+class LocationModelFactory(
+    private val repository: LocationRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return if (modelClass.isAssignableFrom(LocationsModel::class.java)) {
-            LocationsModel(repository) as T
+        return if (modelClass.isAssignableFrom(LocationModel::class.java)) {
+            LocationModel(repository) as T
         } else {
             throw IllegalArgumentException("ViewModel Not Found")
         }

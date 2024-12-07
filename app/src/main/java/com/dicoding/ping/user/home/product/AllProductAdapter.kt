@@ -15,25 +15,26 @@ class AllProductAdapter(private var events: List<DataItem>, private val onItemCl
         var helper: Helper = Helper()
         val productImage: ImageView = itemView.findViewById(R.id.imageLogo)
         val productName: TextView = itemView.findViewById(R.id.namaDagangan)
-        val productPrice: TextView = itemView.findViewById(R.id.harga)
-        val productRating: TextView = itemView.findViewById(R.id.rating)
+        //        val productPrice: TextView = itemView.findViewById(R.id.harga)
+//        val productRating: TextView = itemView.findViewById(R.id.rating)
         val productStatus: TextView = itemView.findViewById(R.id.status)
 
         fun bind(event: DataItem, onItemClick: (DataItem) -> Unit) {
             productName.text = event.name ?: "Unnamed Event"
-            productPrice.text = event.price ?: "Unknown Price"
-            productRating.text = (event.merchant?.average_rating ?: "Unknown Rating").toString()
+//            productPrice.text = event.price ?: "Unknown Price"
+//            productRating.text = (event.merchant?.average_rating ?: "Unknown Rating").toString()
             productStatus.text = event.merchant?.status ?: "Unknown Status"
 
             Glide.with(itemView.context)
                 .load(event.image?.let { helper.removePath(it) })
                 .into(productImage)
             itemView.setOnClickListener { onItemClick(event) }
+
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recommendation, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_all_product, parent, false)
         return ProductViewHolder(view)
     }
 

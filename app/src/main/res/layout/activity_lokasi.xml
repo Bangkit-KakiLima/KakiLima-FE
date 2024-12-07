@@ -52,6 +52,23 @@
         app:itemIconTint="@color/bottom_nav"
         app:itemTextColor="@color/bottom_nav"
         app:itemRippleColor="@color/bottom_nav_ripple"
-        app:menu="@menu/bottom_navigation_menu"/>
+        app:menu="@menu/bottom_navigation_menu"
+        style="@style/CustomBottomNav"/>
 
+    <!-- Tambahkan View untuk loading -->
+    <FrameLayout
+        android:id="@+id/loadingLokasi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/CustomProgressBar"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

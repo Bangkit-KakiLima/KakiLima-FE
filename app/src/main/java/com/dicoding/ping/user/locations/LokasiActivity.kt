@@ -1,10 +1,13 @@
 package com.dicoding.ping.user.locations
 
-import LocationsModel
+import LocationModel
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -13,10 +16,10 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.ping.ui.LoadingActivity
 import com.dicoding.ping.R
 import com.dicoding.ping.user.locations.adapter.LokasiAdapter
 import com.dicoding.ping.api.RetrofitClient.apiService
+import com.dicoding.ping.databinding.ActivityLokasiBinding
 import com.dicoding.ping.user.locations.model.Lokasi
 import com.dicoding.ping.user.home.MainActivity
 import com.dicoding.ping.user.profile.ProfileActivity
@@ -31,16 +34,18 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
+    private lateinit var binding: ActivityLokasiBinding
     private lateinit var mapView: MapView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: LocationsModel
+    private lateinit var viewModel: LocationModel
     private val locationPermissionCode = 100
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var googleMap: GoogleMap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lokasi)
+        binding = ActivityLokasiBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Inisialisasi Toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -67,11 +72,11 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val adapter = LokasiAdapter(lokasiList)
         recyclerView.setAdapter(adapter)
-        val repository = LocationsRepository.getInstance(apiService)
+        val repository = LocationRepository.getInstance(apiService)
         viewModel = ViewModelProvider(
             this,
-            LocationsModelFactory(repository)
-        )[LocationsModel::class.java]
+            LocationModelFactory(repository)
+        )[LocationModel::class.java]
         viewModel.locations.observe(this) { locations ->
             showMarkers(locations)
         }
@@ -194,10 +199,11 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun navigateWithLoading(targetActivity: Class<*>) {
-        val targetIntent = Intent(this, targetActivity)
-        val loadingIntent = Intent(this, LoadingActivity::class.java).apply {
-            putExtra("target_intent", targetIntent)
-        }
-        startActivity(loadingIntent)
+
+        binding.loadingLokasi.visibility = View.VISIBLE // Tampilkan ProgressBar
+        Handler(Looper.getMainLooper()).postDelayed({
+            startActivity(Intent(this, targetActivity))
+            binding.loadingLokasi.visibility = View.GONE // Sembunyikan ProgressBar
+        }, 1500)
     }
 }

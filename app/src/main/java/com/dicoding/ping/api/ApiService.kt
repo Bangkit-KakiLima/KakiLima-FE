@@ -13,10 +13,13 @@ import com.dicoding.ping.auth.register.RegisterResponse
 import com.dicoding.ping.user.locations.LocationResponse
 import com.dicoding.ping.user.UserDataResponse
 import com.dicoding.ping.user.home.product.GetAllProductResponse
+import com.dicoding.ping.user.home.product.ProductDetail
+import retrofit2.Response
 import retrofit2.http.POST
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 
 interface ApiService {
     @POST("auth/register")
@@ -45,6 +48,9 @@ interface ApiService {
 
     @GET("product/recommendations")
     suspend fun getAllRecommendationProducts(): GetAllProductResponse
+
+    @GET("product/{id}")
+    suspend fun getProductById(@Path("id") id: Int): Response<ProductDetail>
 
     //    Location
     @GET("api/location")

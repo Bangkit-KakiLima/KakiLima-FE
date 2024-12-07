@@ -17,6 +17,11 @@
         <item name="cornerSize">8dp</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.RoundedCornerImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
     <!-- Custom BottomNavigationView style -->
     <style name="CustomBottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemIconTint">@color/blue</item>

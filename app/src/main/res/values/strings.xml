@@ -49,7 +49,7 @@
     <string name="drink">Drink</string>
     <string name="recommendations">Recommendations</string>
     <string name="profile_picture_description">profile_picture_description</string>
-    <string name="popular">Popular</string>
+    <string name="all_product">All Product</string>
     <string name="click_here">click here</string>
 
     <!-- card -->
@@ -60,6 +60,7 @@
     <string name="jarak">1.5 km</string>
     <string name="harga">15.000</string>
     <string name="rupiah">Rp</string>
+    <string name="image_desc">image desc</string>
 
     <!-- forgot password -->
     <string name="forgot">Forgot</string>
@@ -118,5 +119,6 @@
     <string name="description_label">Deskription</string>
     <string name="default_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec magna a libero.</string>
     <string name="see_seller">See Seller</string>
+
 
 </resources>

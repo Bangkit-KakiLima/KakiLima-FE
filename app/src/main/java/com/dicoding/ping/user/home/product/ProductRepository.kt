@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.ping.api.ApiService
+import retrofit2.Response
 
 class ProductRepository(private val apiService: ApiService) {
 
@@ -36,5 +37,9 @@ class ProductRepository(private val apiService: ApiService) {
             _errorMessage.postValue("Error: ${e.message}")
             Log.e("ProductRepository", "getAllData on Exception: ${e.message}")
         }
+    }
+
+    suspend fun getProductById(id: Int): Response<ProductDetail> {
+        return apiService.getProductById(id)
     }
 }
