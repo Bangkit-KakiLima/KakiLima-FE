@@ -41,5 +41,11 @@
         <item name="android:indeterminateTintMode">src_in</item>
     </style>
 
+    <style name="CustomLoading" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/white</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+    </style>
+
     <style name="Theme.PING" parent="Base.Theme.PING" />
 </resources>

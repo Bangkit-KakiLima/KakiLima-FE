@@ -30,11 +30,14 @@ class ForgotPasswordActivity : AppCompatActivity() {
         repository = AuthRepository.getInstance(RetrofitClient.apiService)
         sessionManager = SessionManager(this)
         otpModel.setSessionManager(sessionManager)
+
         binding.btnSubmitFgPassword.setOnClickListener {
             val email = binding.etEmail.text.toString()
             if (email != null) {
                 val intent = Intent(this, OtpForgotPasswordActivity::class.java)
+                binding.btnSubmitFgPassword.showLoading(true)
                 otpModel.resendOtpForgotPassword(email) { success ->
+                    binding.btnSubmitFgPassword.showLoading(false)
                     if (success) {
                         sessionManager.saveEmailForgotPassword(email)
                         AlertDialog.Builder(this).apply {

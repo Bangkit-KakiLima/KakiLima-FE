@@ -1,0 +1,26 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/register_button_selector">
+
+        <TextView
+            android:id="@+id/buttonText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="visible"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"/>
+
+        <ProgressBar
+            android:id="@+id/buttonProgress"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            style="@style/CustomLoading"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</merge>

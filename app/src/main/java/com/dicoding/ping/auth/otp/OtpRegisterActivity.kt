@@ -67,10 +67,6 @@ class OtpRegisterActivity : AppCompatActivity() {
                     // Kembalikan teks ke tampilan awal (tanpa warna biru dan underline)
                     binding.txtResendOtp.text = SpannableString("Resend again")
                     binding.txtResendOtp.performClick() // Panggil performClick untuk aksesibilitas
-
-                    // Navigasi ke popup
-//                    val intent = Intent(this, OtpRegisterActivity::class.java)
-//                    startActivity(intent)
                 }
             }
             true
@@ -81,14 +77,16 @@ class OtpRegisterActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.btnVerify.setOnClickListener {
-            val intentOtp = Intent(this, OtpRegisterActivity::class.java)
+//            val intentOtp = Intent(this, OtpRegisterActivity::class.java)
             val intentLogin = Intent(this, LoginActivity::class.java)
             val email = sessionManager.getEmail()
             val otp_code = binding.etOtp.text.toString()
             Log.d("setupAction", "setupAction: $email, $otp_code")
 
             if (email != null && binding.etOtp.error == null) {
+                binding.btnVerify.showLoading(true)
                 otpModel.verify(email, otp_code) { success ->
+                    binding.btnVerify.showLoading(false)
                     if (success) {
                         AlertDialog.Builder(this).apply {
                             setTitle("Yeah!")

@@ -103,7 +103,9 @@ class RegisterActivity : AppCompatActivity() {
             val role = "buyer"
             if (password == confirmPassword) {
                 if (binding.etEmail.error == null && binding.etPassword.error == null) {
+                    binding.btnRegister.showLoading(true)
                     registerModel.register(username, email, password, role) { success ->
+                        binding.btnRegister.showLoading(false)
                         if (!isFinishing && !isDestroyed) {
                             if (success) {
                                 sessionManager.saveEmail(email)

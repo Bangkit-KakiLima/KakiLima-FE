@@ -42,8 +42,11 @@ class NewPasswordActivity : AppCompatActivity() {
             val email = sessionManager.getEmailForgotPassword()
             val otp_code = sessionManager.getOtpForgotPassword()
             Log.d("setupAction New Password", "setupAction: $email, $otp_code, $newPassword")
+
             if (newPassword != null && email != null && otp_code != null) {
+                binding.btnSubmitNewPass.showLoading(true)
                 otpModel.resetPassowrd(otp_code, email, newPassword) { success ->
+                    binding.btnSubmitNewPass.showLoading(false)
                     if (success == true) {
                         AlertDialog.Builder(this).apply {
                             setTitle("Success")

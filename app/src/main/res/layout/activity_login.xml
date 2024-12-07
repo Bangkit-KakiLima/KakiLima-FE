@@ -111,33 +111,30 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Forgot Password -->
-                <com.dicoding.ping.ui.CustomViewText
+                <TextView
                     android:id="@+id/txtForgotPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="6dp"
+                    android:textColor="@color/black"
                     android:text="@string/ket_forgot_password"
                     android:textSize="14sp"
                     android:padding="5dp"
-                    android:layout_gravity="end" />
+                    android:layout_gravity="end"
+                    android:clickable="true"
+                    android:focusable="true" />
 
                 <!-- Login Button -->
-                <com.dicoding.ping.ui.MyButton
+                <com.dicoding.ping.ui.BtnLogin
                     android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginBottom="24dp"
-                    android:padding="13dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="@string/log_in"
-                    android:contentDescription="@string/login_button"
-                    android:textSize="20sp"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
                     android:textAllCaps="false" />
 
                 <!-- Footer -->
@@ -156,7 +153,7 @@
                         android:textSize="14sp"
                         android:textColor="#000000" />
 
-                    <com.dicoding.ping.ui.CustomText
+                    <TextView
                         android:id="@+id/txtSignUp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -166,9 +163,16 @@
                         android:textStyle="bold"
                         android:clickable="true"
                         android:focusable="true"
+                        android:textColor="#4DA0C1"
                         android:textAllCaps="false" />
+
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
+        <ProgressBar
+            android:id="@+id/progressBarLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
     </LinearLayout>
 </layout>

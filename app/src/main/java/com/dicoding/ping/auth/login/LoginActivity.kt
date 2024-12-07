@@ -146,8 +146,9 @@ class LoginActivity : AppCompatActivity() {
                     show()
                 }
             } else {
-                Log.d("setupAction Login 1", "setupAction: $email, $password")
+                binding.btnLogin.showLoading(true)
                 loginModel.login(email, password) { success ->
+                    binding.btnLogin.showLoading(false)
                     if (success) {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
