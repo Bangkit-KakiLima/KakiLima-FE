@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp" />
 
-    <!-- No. HP -->
+    <!-- Phone Number -->
     <EditText
         android:id="@+id/edit_phone_number"
         android:layout_width="0dp"

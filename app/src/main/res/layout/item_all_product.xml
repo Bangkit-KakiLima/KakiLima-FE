@@ -94,7 +94,7 @@
                 android:id="@+id/hargaContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_full_corner"
+                android:background="@drawable/bg_harga"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="4dp"
                 android:orientation="horizontal"

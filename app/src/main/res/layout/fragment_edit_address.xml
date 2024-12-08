@@ -19,7 +19,7 @@
 
     <!-- Jalan -->
     <EditText
-        android:id="@+id/edit_full_name"
+        android:id="@+id/edit_street_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -47,7 +47,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_full_name" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_street_name" />
 
     <!-- Kode Pos -->
     <EditText

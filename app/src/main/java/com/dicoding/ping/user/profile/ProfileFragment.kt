@@ -33,7 +33,6 @@ class ProfileFragment : Fragment() {
 
         // Initialize views
         editName = view.findViewById(R.id.edit_full_name)
-
        // editEmail = view.findViewById(R.id.edit_email)
         editPassword = view.findViewById(R.id.edit_password)
         saveButton = view.findViewById(R.id.save_button)

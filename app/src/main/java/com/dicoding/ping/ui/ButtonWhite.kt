@@ -8,7 +8,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.dicoding.ping.R
 
-
 class ButtonWhite @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

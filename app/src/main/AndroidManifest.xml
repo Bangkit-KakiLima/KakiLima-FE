@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.PING"
-        tools:targetApi="31">
+        android:usesCleartextTraffic="true"
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="tiramisu">
+
         <!-- Meta-Data untuk Google Maps API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"

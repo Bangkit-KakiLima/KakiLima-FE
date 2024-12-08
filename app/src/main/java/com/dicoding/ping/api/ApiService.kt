@@ -10,10 +10,14 @@ import com.dicoding.ping.auth.password.ForgotPasswordRequest
 import com.dicoding.ping.auth.password.ForgotPasswordResponse
 import com.dicoding.ping.auth.register.RegisterRequest
 import com.dicoding.ping.auth.register.RegisterResponse
+import com.dicoding.ping.banner.weather.WeatherResponse
 import com.dicoding.ping.user.locations.LocationResponse
 import com.dicoding.ping.user.UserDataResponse
 import com.dicoding.ping.user.home.product.GetAllProductResponse
 import com.dicoding.ping.user.home.product.ProductDetail
+import com.dicoding.ping.user.profile.address.AddAddressResponse
+import com.dicoding.ping.user.profile.address.AddAdressRequest
+import com.dicoding.ping.user.profile.address.GetAddressResponse
 import retrofit2.Response
 import retrofit2.http.POST
 import retrofit2.http.Body
@@ -40,6 +44,7 @@ interface ApiService {
     @GET("auth/userData")
     suspend fun getUserData(): UserDataResponse
 
+
     //    Product
     @GET("product")
     suspend fun getAllProducts(): GetAllProductResponse
@@ -54,7 +59,16 @@ interface ApiService {
     suspend fun getProductsByCategory(@Path("category") category: String): GetAllProductResponse
 
     //    Location
-    @GET("api/location")
+    @GET("locations")
     suspend fun getAllLocations(): List<LocationResponse>
+
+    @GET("address/weather")
+    suspend fun getWeather(): WeatherResponse
+
+    @GET("address")
+    suspend fun getAddress(): GetAddressResponse
+
+    @POST("address")
+    suspend fun addAddress(@Body request: AddAdressRequest): AddAddressResponse
 
 }
