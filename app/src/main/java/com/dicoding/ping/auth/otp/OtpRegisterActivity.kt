@@ -86,21 +86,29 @@ class OtpRegisterActivity : AppCompatActivity() {
             if (email != null && otp_code.length == 6) {
                 binding.btnVerify.showLoading(true)
                 otpModel.verify(email, otp_code) { success ->
-                    binding.btnVerify.showLoading(false)
-                    if (success) {
-                        AlertDialog.Builder(this).apply {
-                            setTitle("Success!")
-                            setMessage("The account with $email has been successfully created. Please log in to continue.")
-                            setPositiveButton("Continue") { _, _ ->
-                                startActivity(Intent(this@OtpRegisterActivity, LoginActivity::class.java))
-                                finish()
+
+                    binding.btnVerify.postDelayed({
+                        binding.btnVerify.showLoading(false)
+                        if (success) {
+                            AlertDialog.Builder(this).apply {
+                                setTitle("Success!")
+                                setMessage("The account with $email has been successfully created. Please log in to continue.")
+                                setPositiveButton("Continue") { _, _ ->
+                                    startActivity(
+                                        Intent(
+                                            this@OtpRegisterActivity,
+                                            LoginActivity::class.java
+                                        )
+                                    )
+                                    finish()
+                                }
+                                create()
+                                show()
                             }
-                            create()
-                            show()
+                        } else {
+                            showErrorDialog("Verification failed! Please try again.")
                         }
-                    } else {
-                        showErrorDialog("Verification failed! Please try again.")
-                    }
+                    }, 2000)
                 }
             } else {
                 showErrorDialog("Please enter a valid 6-digit OTP code.")
@@ -110,18 +118,22 @@ class OtpRegisterActivity : AppCompatActivity() {
         binding.txtResendOtp.setOnClickListener {
             val email = sessionManager.getEmail()
             if (email != null) {
+                binding.txtResendOtp.isEnabled = false
                 otpModel.resendOtp(email) { success ->
-                    if (success) {
-                        AlertDialog.Builder(this).apply {
-                            setTitle("OTP Resent")
-                            setMessage("A new OTP code has been sent to $email.")
-                            setPositiveButton("OK", null)
-                            create()
-                            show()
+                    binding.txtResendOtp.postDelayed({
+                        binding.txtResendOtp.isEnabled = true
+                        if (success) {
+                            AlertDialog.Builder(this).apply {
+                                setTitle("OTP Resent")
+                                setMessage("A new OTP code has been sent to $email.")
+                                setPositiveButton("OK", null)
+                                create()
+                                show()
+                            }
+                        } else {
+                            showErrorDialog("Failed to resend OTP. Please try again.")
                         }
-                    } else {
-                        showErrorDialog("Failed to resend OTP. Please try again.")
-                    }
+                    }, 2000)
                 }
             } else {
                 showErrorDialog("Email is not available. Please login again.")

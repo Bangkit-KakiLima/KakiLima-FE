@@ -149,24 +149,26 @@ class LoginActivity : AppCompatActivity() {
                 // Tampilkan loading di tombol
                 binding.btnLogin.showLoading(true)
 
-                loginModel.login(email, password) { success ->
-                    // Sembunyikan loading di tombol
-                    binding.btnLogin.showLoading(false)
+                binding.btnLogin.postDelayed({
+                    loginModel.login(email, password) { success ->
+                        // Sembunyikan loading di tombol
+                        binding.btnLogin.showLoading(false)
 
-                    if (success) {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        AlertDialog.Builder(this).apply {
-                            setTitle("Oops!")
-                            setMessage("Incorrect email and password")
-                            setPositiveButton("Repeat", null)
-                            create()
-                            show()
+                        if (success) {
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            AlertDialog.Builder(this).apply {
+                                setTitle("Oops!")
+                                setMessage("Incorrect email and password")
+                                setPositiveButton("Repeat", null)
+                                create()
+                                show()
+                            }
                         }
                     }
-                }
+                }, 2000)
             }
         }
     }

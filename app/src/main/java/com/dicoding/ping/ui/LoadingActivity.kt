@@ -23,8 +23,6 @@ class LoadingActivity : AppCompatActivity() {
                 targetIntent.let {
                     startActivity(it)
                     finish() // Menutup LoadingActivity setelah halaman tujuan dimulai
-                } ?: run {
-                    Log.e("LoadingActivity", "Target intent is null")
                 }
             }, 1500)
         }

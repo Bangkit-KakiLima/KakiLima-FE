@@ -35,31 +35,34 @@ class ForgotPasswordActivity : AppCompatActivity() {
             val email = binding.etEmail.text.toString()
             if (email != null) {
                 val intent = Intent(this, OtpForgotPasswordActivity::class.java)
+
                 binding.btnSubmitFgPassword.showLoading(true)
                 otpModel.resendOtpForgotPassword(email) { success ->
-                    binding.btnSubmitFgPassword.showLoading(false)
-                    if (success) {
-                        sessionManager.saveEmailForgotPassword(email)
-                        AlertDialog.Builder(this).apply {
-                            setTitle("OTP Sent")
-                            setMessage("An OTP has been sent to your email $email.")
-                            setPositiveButton("Continue") { _, _ ->
-                                startActivity(intent)
-                                finish()
-                            }
-                            create()
-                            show()
-                        }
-                    } else {
-                        AlertDialog.Builder(this).apply {
-                            setTitle("Failed to Send OTP")
-                            setMessage("Failed to send OTP. Please try again.")
-                            setPositiveButton("Retry", null)
-                            create()
-                            show()
-                        }
-                    }
 
+                    binding.btnSubmitFgPassword.postDelayed({
+                        binding.btnSubmitFgPassword.showLoading(false)
+                        if (success) {
+                            sessionManager.saveEmailForgotPassword(email)
+                            AlertDialog.Builder(this).apply {
+                                setTitle("OTP Sent")
+                                setMessage("An OTP has been sent to your email $email.")
+                                setPositiveButton("Continue") { _, _ ->
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                create()
+                                show()
+                            }
+                        } else {
+                            AlertDialog.Builder(this).apply {
+                                setTitle("Failed to Send OTP")
+                                setMessage("Failed to send OTP. Please try again.")
+                                setPositiveButton("Retry", null)
+                                create()
+                                show()
+                            }
+                        }
+                    }, 2000)
                 }
             }
         }
