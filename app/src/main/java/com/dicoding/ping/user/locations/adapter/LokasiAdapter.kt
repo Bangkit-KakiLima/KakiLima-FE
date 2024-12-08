@@ -21,10 +21,17 @@ class LokasiAdapter(private val lokasiList: ArrayList<Lokasi>) :
     override fun onBindViewHolder(holder: LokasiViewHolder, position: Int) {
         val lokasi = lokasiList[position]
         holder.nameTextView.text = lokasi.name
-        holder.distanceTextView.text = lokasi.distance
-        holder.timeTextView.text = lokasi.time
         holder.imageView.setImageResource(lokasi.imageResource)
         holder.ratingBar.rating = lokasi.rating.toFloat()
+        holder.ratingText.text = lokasi.rating.toString()
+        holder.distanceView.text = String.format("%.2f km", lokasi.distance)
+        if (lokasi.isOpen) {
+            holder.itemStatus.text = "Buka"
+            holder.itemStatus.setTextColor(0xFF4CAF50.toInt())
+        } else {
+            holder.itemStatus.text = "Tutup"
+            holder.itemStatus.setTextColor(0xFFF44336.toInt())
+        }
     }
 
     override fun getItemCount(): Int {
@@ -34,12 +41,18 @@ class LokasiAdapter(private val lokasiList: ArrayList<Lokasi>) :
     class LokasiViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var nameTextView: TextView =
             itemView.findViewById(R.id.text_name)
-        var distanceTextView: TextView =
-            itemView.findViewById(R.id.text_distance)
-        var timeTextView: TextView =
-            itemView.findViewById(R.id.text_time)
         var imageView: ImageView =
             itemView.findViewById(R.id.image_location)
+        var distanceView: TextView =
+            itemView.findViewById(R.id.item_distance)
         var ratingBar: RatingBar = itemView.findViewById(R.id.rating_location)
+        var ratingText: TextView =
+            itemView.findViewById(R.id.text_rating_value)
+        var itemStatus: TextView =
+            itemView.findViewById(R.id.item_status)
+    }
+
+    fun addLokasi(lokasi: Lokasi) {
+        lokasiList.add(lokasi)
     }
 }

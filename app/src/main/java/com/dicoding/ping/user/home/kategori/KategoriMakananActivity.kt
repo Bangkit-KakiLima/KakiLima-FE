@@ -1,4 +1,4 @@
-package com.dicoding.ping.kategori
+package com.dicoding.ping.user.home.kategori
 
 import android.os.Bundle
 import android.widget.Toast
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.ping.R
 import com.dicoding.ping.api.RetrofitClient
-import com.dicoding.ping.ui.adapter.CategoryAdapter
+import com.dicoding.ping.user.home.kategori.adapter.CategoryAdapter
 import com.dicoding.ping.user.home.product.ProductModel
 import com.dicoding.ping.user.home.product.ProductRepository
 import com.dicoding.ping.user.home.product.ProductViewModelFactory
