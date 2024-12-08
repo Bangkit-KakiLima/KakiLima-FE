@@ -26,9 +26,8 @@ class KategoriAdapter(private val kategoriList: ArrayList<Kategori>) :
         holder.itemImage.setImageResource(kategori.imageResource)
         holder.itemName.text = kategori.name
         holder.itemRating.text = kategori.rating.toString()
-        holder.itemDistance.text = kategori.distance
         holder.itemPrice.text = kategori.price
-        holder.itemStatus.text = if (kategori.isOpen) "Buka" else "Tutup"
+        holder.itemStatus.text = if (kategori.isOpen) "Open" else "Close"
     }
 
     // Mengembalikan jumlah item
@@ -41,7 +40,6 @@ class KategoriAdapter(private val kategoriList: ArrayList<Kategori>) :
         val itemImage: ImageView = itemView.findViewById(R.id.item_image)
         val itemName: TextView = itemView.findViewById(R.id.item_name)
         val itemRating: TextView = itemView.findViewById(R.id.item_rating)
-        val itemDistance: TextView = itemView.findViewById(R.id.item_distance)
         val itemPrice: TextView = itemView.findViewById(R.id.item_price)
         val itemStatus: TextView = itemView.findViewById(R.id.item_status)
     }

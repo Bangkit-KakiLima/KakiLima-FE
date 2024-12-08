@@ -57,14 +57,14 @@ class BtnLogin @JvmOverloads constructor(
 
 
 //sebelum memakai loading
-//package com.dicoding.projectcapstone.ui
+//package com.dicoding.ping.ui
 //
 //import android.content.Context
 //import android.util.AttributeSet
 //import android.view.Gravity
 //import androidx.appcompat.widget.AppCompatButton
 //import androidx.core.content.ContextCompat
-//import com.dicoding.projectcapstone.R
+//import com.dicoding.ping.R
 //
 //
 //class MyButton @JvmOverloads constructor(

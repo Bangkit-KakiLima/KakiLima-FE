@@ -1,10 +1,12 @@
-package com.dicoding.ping.user.home.kategori
+package com.dicoding.ping.kategori
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.ping.R
+import com.dicoding.ping.user.home.kategori.Kategori
+import com.dicoding.ping.user.home.kategori.KategoriAdapter
 
 class KategoriActivity : AppCompatActivity() {
 
@@ -15,19 +17,16 @@ class KategoriActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kategori_makanan)
-        setContentView(R.layout.activity_kategori_minuman)
+        setContentView(R.layout.activity_kategori)
 
-
-        foodList = findViewById(R.id.recycler_view_kategori_food)
-        drinkList = findViewById(R.id.recycler_view_kategori_food)
+        foodList = findViewById(R.id.food_list)
+        drinkList = findViewById(R.id.drink_list)
 
         kategoriList.add(
             Kategori(
                 imageResource = R.drawable.ic_food,
                 name = "Food",
                 rating = 4.5,
-                distance = "2 km",
                 price = "$10",
                 isOpen = true
             )
@@ -37,7 +36,6 @@ class KategoriActivity : AppCompatActivity() {
                 imageResource = R.drawable.ic_drink,
                 name = "Drink",
                 rating = 4.0,
-                distance = "1.5 km",
                 price = "$5",
                 isOpen = false
             )
@@ -48,12 +46,8 @@ class KategoriActivity : AppCompatActivity() {
         foodList.adapter = kategoriAdapter
         foodList.layoutManager = LinearLayoutManager(this)
 
-        // Atur RecyclerView untuk daftar makanan / minuman
+        // Atur RecyclerView untuk daftar minuman
         drinkList.adapter = kategoriAdapter
         drinkList.layoutManager = LinearLayoutManager(this)
-
-        foodList.adapter = kategoriAdapter
-        foodList.layoutManager = LinearLayoutManager(this)
-
     }
 }
