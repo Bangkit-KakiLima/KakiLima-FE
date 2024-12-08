@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ping</string>
+    <string name="app_name">P!NG</string>
 
     <!-- welcome -->
     <string name="tap_next">Tap Next</string>
@@ -39,20 +39,23 @@
     <string name="enter_otp">enter otp</string>
 
     <!-- Homepage -->
-    <string name="welcome">Welcome</string>
-    <string name="user_name">Rahma!</string>
+    <string name="welcome">Hi,</string>
+    <string name="user_name">Rahma</string>
     <string name="weather_message">Hujan-hujan begini, yuk nikmati makanan hangat yang bikin hati nyaman!</string>
     <string name="text_content_cuaca">Hujan-hujan gini, ada rekomendasi makanan untukmu nih!</string>
     <string name="categories">Categories</string>
+    <string name="weather_match">Weather Match</string>
     <string name="food">Food</string>
     <string name="drink">Drink</string>
-    <string name="recommendations">Recommendations</string>
+    <string name="recommendations">Top Rated</string>
     <string name="profile_picture_description">profile_picture_description</string>
     <string name="all_product">All Product</string>
     <string name="click_here">Click Here</string>
     <string name="weather">Sunny</string>
     <string name="temperatur">30</string>
     <string name="suhu">°C</string>
+    <string name="city_name">Subang</string>
+    <string name="location_icon">location icon</string>
 
     <!-- card -->
     <string name="nama_makanan">Soto</string>
@@ -120,7 +123,6 @@
     <string name="description_label">Deskription</string>
     <string name="default_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec magna a libero.</string>
     <string name="see_seller">See Seller</string>
-
 
 
 </resources>

@@ -45,14 +45,35 @@
                     android:layout_weight="1"
                     android:gravity="start">
 
-                    <TextView
-                        android:id="@+id/txtWelcome"
+                    <LinearLayout
+                        android:id="@+id/layoutCity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/blue"
-                        android:textSize="18sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/welcome" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="8dp">
+
+                        <!-- Ikon Lokasi -->
+                        <ImageView
+                            android:id="@+id/iconLocation"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_location_pin"
+                            android:contentDescription="@string/location_icon"
+                            app:tint="@color/blue"
+                            android:layout_marginEnd="3dp" />
+
+                        <!-- Nama Kota -->
+                        <TextView
+                            android:id="@+id/txtCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/city_name"
+                            android:textSize="14sp"
+                            android:textColor="@color/blue" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -61,62 +82,30 @@
                         android:gravity="center_vertical">
 
                         <TextView
+                            android:id="@+id/txtWelcome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blue"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/welcome" />
+
+                        <TextView
                             android:id="@+id/txtName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             android:textStyle="bold"
+                            android:layout_marginStart="4dp"
                             android:textColor="@color/blue"
                             android:fontFamily="sans-serif-medium"
                             android:text="@string/user_name" />
-
-                        <ImageView
-                            android:id="@+id/iconHand"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="4dp"
-                            android:src="@drawable/ic_hand"
-                            android:contentDescription="@null" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <!-- Weather and Temperature Layout -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/txtWeather"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/weather"
-                        android:textSize="18sp"
-                        android:textColor="@color/blue"
-                        android:fontFamily="sans-serif-medium"
-                        android:layout_marginEnd="8dp" />
-
-                    <TextView
-                        android:id="@+id/txtTemperature"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/temperatur"
-                        android:textSize="35sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/dark_blue"
-                        android:fontFamily="sans-serif-medium" />
-
-                    <TextView
-                        android:id="@+id/suhu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/suhu"
-                        android:textSize="35sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/dark_blue"
-                        android:fontFamily="sans-serif-medium" />
-                </LinearLayout>
             </LinearLayout>
 
 
@@ -124,8 +113,8 @@
             <RelativeLayout
                 android:id="@+id/imgBanner"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="25dp"
                 android:elevation="4dp">
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -142,10 +131,46 @@
                     android:layout_height="match_parent"
                     android:alpha="0.4" />
 
+                <TextView
+                    android:id="@+id/txtTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/temperatur"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_toStartOf="@id/suhu"
+                    android:layout_alignTop="@id/suhu"/>
+
+                <!-- Suhu -->
+                <TextView
+                    android:id="@+id/suhu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/suhu"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/txtWeather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weather"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:layout_below="@id/suhu"
+                    android:layout_alignEnd="@id/suhu"
+                    android:layout_marginTop="0dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="70dp"
+                    android:layout_marginTop="105dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingStart="16dp"
@@ -235,10 +260,10 @@
                 android:id="@+id/rvRecommendations"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="6dp" />
 
             <TextView
-                android:id="@+id/txtPopular"
+                android:id="@+id/txtAllProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -252,7 +277,7 @@
                 android:id="@+id/rvAllProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="6dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
