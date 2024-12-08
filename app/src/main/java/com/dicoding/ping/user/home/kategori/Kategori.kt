@@ -4,7 +4,6 @@ data class Kategori(
     val imageResource: Int,
     val name: String,
     val rating: Double,
-    val distance: String,
     val price: String,
     val isOpen: Boolean
 ) {

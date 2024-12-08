@@ -42,8 +42,9 @@ interface ApiService {
     suspend fun resetPassword(@Body request: ForgotPasswordRequest): ForgotPasswordResponse
 
     @GET("auth/userData")
-    suspend fun getUserData(): UserDataResponse
-
+    suspend fun getUserData(
+        @Header("Authorization") authHeader: String
+    ): UserDataResponse
 
     //    Product
     @GET("product")
@@ -55,13 +56,7 @@ interface ApiService {
     @GET("product/{id}")
     suspend fun getProductById(@Path("id") id: Int): Response<ProductDetail>
 
-    @GET("product/category/{category}")
-    suspend fun getProductsByCategory(@Path("category") category: String): GetAllProductResponse
-
-    //    Location
-    @GET("locations")
-    suspend fun getAllLocations(): List<LocationResponse>
-
+    //    Weather - Address
     @GET("address/weather")
     suspend fun getWeather(): WeatherResponse
 
@@ -70,5 +65,13 @@ interface ApiService {
 
     @POST("address")
     suspend fun addAddress(@Body request: AddAdressRequest): AddAddressResponse
+
+    //    Location
+    @GET("api/location")
+    suspend fun getAllLocations(): List<LocationResponse>
+
+    //     Product Category
+    @GET("product/category/{category}")
+    suspend fun getProductsByCategory(@Path("category") category: String): GetAllProductResponse
 
 }

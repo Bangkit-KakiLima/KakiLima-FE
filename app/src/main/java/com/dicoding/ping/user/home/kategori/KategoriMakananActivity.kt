@@ -1,33 +1,38 @@
 package com.dicoding.ping.user.home.kategori
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.ping.R
-import com.dicoding.ping.user.home.kategori.model.Makanan
-import com.dicoding.ping.user.home.kategori.adapter.MakananAdapter
+import com.dicoding.ping.api.RetrofitClient
+import com.dicoding.ping.user.home.kategori.adapter.CategoryAdapter
+import com.dicoding.ping.user.home.product.ProductModel
+import com.dicoding.ping.user.home.product.ProductRepository
+import com.dicoding.ping.user.home.product.ProductViewModelFactory
 
 class KategoriMakananActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var viewModel: ProductModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kategori_makanan)
-
         recyclerView = findViewById(R.id.recycler_view_kategori_food)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        val makananList = listOf(
-            Makanan("Fried Rice", "Delicious fried rice with egg", "Rp 20.000",
-                R.drawable.ic_launcher_background
-            ),
-            Makanan("Fried Noodles", "Fried noodles with vegetables", "Rp 18.000",
-                R.drawable.ic_launcher_background
-            )
-        )
-
-        val adapter = MakananAdapter(makananList)
-        recyclerView.adapter = adapter
+        val apiService = RetrofitClient.apiService
+        val repository = ProductRepository(apiService)
+        viewModel = ViewModelProvider(this, ProductViewModelFactory(repository))[ProductModel::class.java]
+        viewModel.fetchProductsByCategory("Makanan")
+        viewModel.categoryProducts.observe(this) { products ->
+            if (products != null) {
+                val adapter = CategoryAdapter(products)
+                recyclerView.adapter = adapter
+            } else {
+                Toast.makeText(this, "Gagal memuat data", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

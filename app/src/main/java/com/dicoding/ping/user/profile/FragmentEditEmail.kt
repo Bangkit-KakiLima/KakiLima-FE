@@ -1,4 +1,4 @@
-package com.dicoding.projectcapstone.profile
+package com.dicoding.ping.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
