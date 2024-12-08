@@ -41,8 +41,6 @@ class RegisterActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         val loginTextView = binding.txtLogin
-
-        // Membuat SpannableString untuk teks
         val spannableStringSignUp = SpannableString("Log In")
         loginTextView.text = spannableStringSignUp
 
@@ -50,7 +48,6 @@ class RegisterActivity : AppCompatActivity() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
 
-                    // Ubah warna teks menjadi warna custom (#4DA0C1) dan tambahkan underline
                     val spannableHover = SpannableString("Log In")
                     spannableHover.setSpan(
                         ForegroundColorSpan(Color.parseColor("#4DA0C1")),
@@ -68,11 +65,9 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 MotionEvent.ACTION_UP -> {
-                    // Kembalikan teks ke tampilan awal (tanpa warna biru dan underline)
                     binding.txtLogin.text = SpannableString("Log In")
                     binding.txtLogin.performClick() // Panggil performClick untuk aksesibilitas
 
-                    // Navigasi ke halaman Login
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 }
@@ -153,7 +148,6 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupEmailValidation() {
         binding.etEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s != null && !Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
                     binding.etEmail.error = "Invalid email format"

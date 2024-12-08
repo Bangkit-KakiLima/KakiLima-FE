@@ -42,9 +42,7 @@ interface ApiService {
     suspend fun resetPassword(@Body request: ForgotPasswordRequest): ForgotPasswordResponse
 
     @GET("auth/userData")
-    suspend fun getUserData(
-        @Header("Authorization") authHeader: String
-    ): UserDataResponse
+    suspend fun getUserData(): UserDataResponse
 
     //    Product
     @GET("product")

@@ -9,7 +9,7 @@ class UserModelFactory(
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(UserModel::class.java)) {
-            UserModel(repository) as T
+            UserModel() as T
         } else {
             throw IllegalArgumentException("ViewModel Not Found")
         }

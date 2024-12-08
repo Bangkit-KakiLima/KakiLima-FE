@@ -8,7 +8,6 @@ import android.text.SpannableString
 import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
-import android.util.Log
 import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -146,12 +145,9 @@ class LoginActivity : AppCompatActivity() {
                     show()
                 }
             } else {
-                // Tampilkan loading di tombol
                 binding.btnLogin.showLoading(true)
-
                 binding.btnLogin.postDelayed({
                     loginModel.login(email, password) { success ->
-                        // Sembunyikan loading di tombol
                         binding.btnLogin.showLoading(false)
 
                         if (success) {

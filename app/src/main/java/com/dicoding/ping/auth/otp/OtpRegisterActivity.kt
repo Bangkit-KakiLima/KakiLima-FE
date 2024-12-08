@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.util.Log
+import android.view.KeyEvent
 import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -39,17 +42,14 @@ class OtpRegisterActivity : AppCompatActivity() {
 
         setupSpannableText()
         setupAction()
+        setupOtpInputs()
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setupSpannableText() {
         val resendOtpTextView = binding.txtResendOtp
-
-        // Membuat SpannableString untuk teks "Resend again"
         val spannableStringSignUp = SpannableString("Resend again")
         resendOtpTextView.text = spannableStringSignUp
-
-        // Menambahkan efek hover pada teks "Resend again"
         resendOtpTextView.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
@@ -137,6 +137,41 @@ class OtpRegisterActivity : AppCompatActivity() {
                 }
             } else {
                 showErrorDialog("Email is not available. Please login again.")
+            }
+        }
+    }
+
+    private fun setupOtpInputs() {
+        val otpBoxes = listOf(
+            binding.etBox1,
+            binding.etBox2,
+            binding.etBox3,
+            binding.etBox4,
+            binding.etBox5,
+            binding.etBox6
+        )
+
+        otpBoxes.forEachIndexed { index, editText ->
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (!s.isNullOrEmpty() && index < otpBoxes.size - 1) {
+                        otpBoxes[index + 1].requestFocus()
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
+
+            editText.setOnKeyListener { _, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN &&
+                    keyCode == KeyEvent.KEYCODE_DEL &&
+                    editText.text.isEmpty() &&
+                    index > 0
+                ) {
+                    otpBoxes[index - 1].requestFocus()
+                }
+                false
             }
         }
     }

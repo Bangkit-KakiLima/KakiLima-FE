@@ -12,6 +12,7 @@ import com.dicoding.ping.auth.password.ForgotPasswordResponse
 import com.dicoding.ping.auth.register.RegisterRequest
 import com.dicoding.ping.auth.register.RegisterResponse
 import com.dicoding.ping.user.UserDataResponse
+import com.dicoding.ping.user.profile.address.GetAddressResponse
 
 class AuthRepository(
     private val apiService: ApiService
@@ -48,6 +49,10 @@ class AuthRepository(
 
     suspend fun getUserData(): UserDataResponse {
         return apiService.getUserData()
+    }
+
+    suspend fun getAddres(): GetAddressResponse? {
+        return apiService.getAddress()
     }
 
     companion object {

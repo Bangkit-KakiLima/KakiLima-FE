@@ -124,5 +124,11 @@
     <string name="default_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec magna a libero.</string>
     <string name="see_seller">See Seller</string>
 
+    <!-- Edit Address -->
+    <string name="street_name">Street Name</string>
+    <string name="city">City</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="save">Save</string>
+
 
 </resources>

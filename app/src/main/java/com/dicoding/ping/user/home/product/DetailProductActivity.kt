@@ -13,10 +13,7 @@ class DetailProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_product)
 
-        // Menerima data dari Intent
         val productDetail: ProductDetail = intent.getParcelableExtra("product_detail")!!
-
-        // Menampilkan data ke dalam view
         val nameTextView: TextView = findViewById(R.id.product_name)
         val rateTextView: TextView = findViewById(R.id.product_rating)
         val descriptionTextView: TextView = findViewById(R.id.product_description)

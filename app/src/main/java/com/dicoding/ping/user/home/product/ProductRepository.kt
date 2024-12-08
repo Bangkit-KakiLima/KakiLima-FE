@@ -42,4 +42,18 @@ class ProductRepository(private val apiService: ApiService) {
     suspend fun getProductById(id: Int): Response<ProductDetail> {
         return apiService.getProductById(id)
     }
+
+    suspend fun getProductsByCategory(category: String): List<DataItem>? {
+        return try {
+            val response = apiService.getProductsByCategory(category)
+            if (response.success == true) {
+                response.data as List<DataItem>?
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log.e("ProductRepository", "Error fetching category: ${e.message}")
+            null
+        }
+    }
 }

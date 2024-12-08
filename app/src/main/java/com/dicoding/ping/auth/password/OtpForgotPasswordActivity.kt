@@ -4,10 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
+import android.view.KeyEvent
 import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -18,7 +21,6 @@ import com.dicoding.ping.auth.otp.OtpModel
 import com.dicoding.ping.auth.otp.OtpModelFactory
 import com.dicoding.ping.databinding.ActivityOtpForgotPasswordBinding
 import com.dicoding.ping.utils.SessionManager
-
 
 class OtpForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOtpForgotPasswordBinding
@@ -40,8 +42,6 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
         otpModel.setSessionManager(sessionManager)
 
         val resendOtpTextView = binding.txtResendOtp
-
-        // Membuat SpannableString untuk teks
         val spannableStringSignUp = SpannableString("Resend again")
         resendOtpTextView.text = spannableStringSignUp
 
@@ -49,7 +49,6 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
 
-                    // Ubah warna teks menjadi warna custom (#4DA0C1) dan tambahkan underline
                     val spannableHover = SpannableString("Resend again")
                     spannableHover.setSpan(
                         ForegroundColorSpan(Color.parseColor("#4DA0C1")),
@@ -67,7 +66,6 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
                 }
 
                 MotionEvent.ACTION_UP -> {
-                    // Kembalikan teks ke tampilan awal (tanpa warna biru dan underline)
                     binding.txtResendOtp.text = SpannableString("Resend again")
                     binding.txtResendOtp.performClick() // Panggil performClick untuk aksesibilitas
                 }
@@ -76,6 +74,7 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
         }
 
         setupAction()
+        setupOtpInputs()
     }
 
     private fun setupAction() {
@@ -126,6 +125,41 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
                     "Failed to resend OTP. Please try again."
                 }
                 showAlertDialog(title, message, false)
+            }
+        }
+    }
+
+    fun setupOtpInputs() {
+        val otpBoxes = listOf(
+            binding.etBox1,
+            binding.etBox2,
+            binding.etBox3,
+            binding.etBox4,
+            binding.etBox5,
+            binding.etBox6
+        )
+
+        otpBoxes.forEachIndexed { index, editText ->
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (!s.isNullOrEmpty() && index < otpBoxes.size - 1) {
+                        otpBoxes[index + 1].requestFocus()
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
+
+            editText.setOnKeyListener { _, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN &&
+                    keyCode == KeyEvent.KEYCODE_DEL &&
+                    editText.text.isEmpty() &&
+                    index > 0
+                ) {
+                    otpBoxes[index - 1].requestFocus()
+                }
+                false
             }
         }
     }

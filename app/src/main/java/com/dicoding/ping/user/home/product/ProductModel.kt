@@ -15,6 +15,9 @@ class ProductModel(private val repository: ProductRepository) : ViewModel() {
     private val _productDetailLiveData = MutableLiveData<ProductDetail?>()
     val productDetailLiveData: MutableLiveData<ProductDetail?> get() = _productDetailLiveData
 
+    private val _categoryProducts = MutableLiveData<List<DataItem>?>()
+    val categoryProducts: MutableLiveData<List<DataItem>?> get() = _categoryProducts
+
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
 
@@ -34,21 +37,25 @@ class ProductModel(private val repository: ProductRepository) : ViewModel() {
         _loading.value = true
         viewModelScope.launch {
             try {
-                _productDetailLiveData.value = null // Menampilkan loading data
+                _productDetailLiveData.value = null
                 val response = repository.getProductById(id)
                 if (response.isSuccessful) {
                     _productDetailLiveData.value = response.body()
                 } else {
-                    // Handle error
                     _productDetailLiveData.value = null
                 }
             } catch (e: Exception) {
-                // Handle exception
                 _productDetailLiveData.value = null
-//            } finally {
-//                _loading.value = false
             }
         }
     }
-}
 
+    fun fetchProductsByCategory(category: String) {
+        viewModelScope.launch {
+            _loading.value = true
+            val products = repository.getProductsByCategory(category)
+            _categoryProducts.postValue(products)
+            _loading.value = false
+        }
+    }
+}
