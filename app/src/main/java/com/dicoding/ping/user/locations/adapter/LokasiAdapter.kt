@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.dicoding.ping.R
 import com.dicoding.ping.user.locations.model.Lokasi
 
@@ -21,7 +23,14 @@ class LokasiAdapter(private val lokasiList: ArrayList<Lokasi>) :
     override fun onBindViewHolder(holder: LokasiViewHolder, position: Int) {
         val lokasi = lokasiList[position]
         holder.nameTextView.text = lokasi.name
-        holder.imageView.setImageResource(lokasi.imageResource)
+        Glide.with(holder.itemView.context)
+            .load(lokasi.imageUrl)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background)
+            )
+            .into(holder.imageView)
         holder.ratingBar.rating = lokasi.rating.toFloat()
         holder.ratingText.text = lokasi.rating.toString()
         holder.distanceView.text = String.format("%.2f km", lokasi.distance)

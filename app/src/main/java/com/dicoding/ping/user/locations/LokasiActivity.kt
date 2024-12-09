@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityLokasiBinding
@@ -62,13 +64,6 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Data Dummy
         val lokasiList = ArrayList<Lokasi>()
-        lokasiList.add(
-            Lokasi(
-                "Restoran A", "1.5 km", "15 menit", R.drawable.ic_launcher_background, 4.5, true)
-        )
-        lokasiList.add(
-            Lokasi("Cafe B", "2.0 km", "20 menit", R.drawable.ic_launcher_background, 4.0, false)
-        )
 
         val adapter = LokasiAdapter(lokasiList)
         recyclerView.setAdapter(adapter)
@@ -112,13 +107,43 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun showMarkers(locations: List<LocationResponse>) {
         googleMap?.let { map ->
-            for (location in locations) {
-                val latLng = LatLng(location.latitude.toDouble(), location.longitude.toDouble())
-                map.addMarker(
-                    MarkerOptions()
-                        .position(latLng)
-                        .title(location.merchant.business_name)
-                )
+            fusedLocationClient.lastLocation.addOnSuccessListener { userLocation ->
+                if (userLocation != null) {
+                    val userLat = userLocation.latitude
+                    val userLng = userLocation.longitude
+                    val sortedLocations = locations.map { location ->
+                        val distance = calculateDistance(
+                            userLat, userLng,
+                            location.latitude.toDouble(), location.longitude.toDouble()
+                        )
+                        Pair(location, distance)
+                    }.sortedBy { it.second }
+                    val nearestLocations = sortedLocations.take(5)
+                    val adapter = recyclerView.adapter as LokasiAdapter
+                    for (pair in nearestLocations) {
+                        val location = pair.first
+                        val distance = pair.second
+                        val latLng = LatLng(location.latitude.toDouble(), location.longitude.toDouble())
+                        map.addMarker(
+                            MarkerOptions()
+                                .position(latLng)
+                                .title("${location.merchant.business_name} (${String.format("%.2f km", distance)})")
+                        )
+                        val isOpen = location.merchant.status.lowercase() == "buka"
+                        Log.i(location.merchant.business_name, "showMarkers: "+isOpen)
+                        val nearestLokasi = Lokasi(
+                            location.merchant.business_name,
+                            location.merchant.products.firstOrNull()?.image ?: R.drawable.ic_launcher_background.toString(),
+                            location.merchant.average_rating,
+                            isOpen,
+                            distance
+                        )
+                        adapter.addLokasi(nearestLokasi)
+                    }
+                    adapter.notifyDataSetChanged()
+                } else {
+                    Toast.makeText(this, "Lokasi pengguna tidak tersedia", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -196,6 +221,17 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
                 locationPermissionCode
             )
         }
+    }
+
+    private fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+        val earthRadius = 6371.0
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLon = Math.toRadians(lon2 - lon1)
+        val a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2)
+        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+        return earthRadius * c
     }
 
     private fun navigateWithLoading(targetActivity: Class<*>) {

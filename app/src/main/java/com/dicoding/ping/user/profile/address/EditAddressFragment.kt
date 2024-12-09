@@ -44,7 +44,6 @@ class EditAddressFragment : Fragment() {
             val postalCode = postalCodeEditText.text.toString()
             val fullAddress = combineAddress(streetName, city, postalCode)
 
-            profileViewModel.addAddress(fullAddress)
             profileViewModel.addAddressResponse.observe(viewLifecycleOwner) { address ->
                 if (address.isNotEmpty()) {
                     AlertDialog.Builder(requireContext()).apply {

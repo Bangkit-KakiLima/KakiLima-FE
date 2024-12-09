@@ -55,39 +55,10 @@
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
-            <!-- Location Icon -->
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_location"
-                />
-
-            <!-- Location Text -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="2,5 km"
-                android:textSize="14sp"/>
-
             <!-- Spacer -->
             <View
                 android:layout_width="16dp"
                 android:layout_height="0dp"/>
-
-            <!-- Time Icon -->
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_time"/>
-
-            <!-- Time Text -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="25 mnt"
-                android:textSize="14sp"/>
 
             <!-- Spacer -->
             <View
