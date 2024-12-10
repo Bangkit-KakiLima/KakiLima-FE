@@ -1,6 +1,10 @@
 package com.dicoding.ping.user.home
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,10 +12,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
@@ -19,19 +22,6 @@ import com.dicoding.ping.R
 import com.dicoding.ping.api.RetrofitClient
 import com.dicoding.ping.api.RetrofitClient.apiService
 import com.dicoding.ping.auth.login.LoginActivity
-import com.dicoding.ping.databinding.ActivityMainBinding
-import com.dicoding.ping.user.UserModel
-import com.dicoding.ping.user.UserModelFactory
-import com.dicoding.ping.user.UserRepository
-import com.dicoding.ping.user.home.kategori.KategoriMakananActivity
-import com.dicoding.ping.user.home.kategori.KategoriMinumanActivity
-import com.dicoding.ping.user.home.product.AllProductAdapter
-import com.dicoding.ping.user.home.product.ProductRecomendationAdapter
-import com.dicoding.ping.utils.Helper
-import com.dicoding.ping.utils.SessionManager
-import com.dicoding.ping.user.home.product.ProductRepository
-import com.dicoding.ping.user.home.product.ProductViewModelFactory
-import com.dicoding.ping.user.locations.LokasiActivity
 import com.dicoding.ping.banner.BannerFactory
 import com.dicoding.ping.banner.BannerModel
 import com.dicoding.ping.banner.BannerRepository
@@ -39,9 +29,29 @@ import com.dicoding.ping.banner.Weather
 import com.dicoding.ping.banner.weather.WeatherModel
 import com.dicoding.ping.banner.weather.WeatherModelFactory
 import com.dicoding.ping.banner.weather.WeatherRepository
+import com.dicoding.ping.databinding.ActivityMainBinding
+import com.dicoding.ping.ui.ScrollingFragmentRecProduct
+import com.dicoding.ping.user.UserModel
+import com.dicoding.ping.user.UserModelFactory
+import com.dicoding.ping.user.UserRepository
+import com.dicoding.ping.user.home.kategori.KategoriMakananActivity
+import com.dicoding.ping.user.home.kategori.KategoriMinumanActivity
+import com.dicoding.ping.user.home.product.AllProductAdapter
+import com.dicoding.ping.user.home.product.DetailProductActivity
 import com.dicoding.ping.user.home.product.ProductModel
+import com.dicoding.ping.user.home.product.ProductRecomendationAdapter
+import com.dicoding.ping.user.home.product.ProductRepository
+import com.dicoding.ping.user.home.product.ProductViewModelFactory
+import com.dicoding.ping.user.locations.LokasiActivity
 import com.dicoding.ping.user.profile.ProfileActivity
+import com.dicoding.ping.user.profile.ProfileRepository
+import com.dicoding.ping.utils.Helper
+import com.dicoding.ping.utils.SessionManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private var helper: Helper = Helper()
@@ -49,6 +59,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var userRepository: UserRepository
     private lateinit var sessionManager: SessionManager
+    private var setTimer = 1000
+    private val locationPermissionCode = 100
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private val weatherData = listOf(
         Weather(
@@ -99,29 +112,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         RetrofitClient.initialize(applicationContext)
+
         sessionManager = SessionManager(this)
         userRepository = UserRepository.getInstance(apiService)
-
         userModel.setSessionManager(sessionManager)
-
         if (!sessionManager.getIsLogin()) {
             navigateToLogin()
         } else {
-            setupHome() // Initialize the main home setup
-            val address = sessionManager.getAddressUser()
-            Log.d("MainActivity", "onCreate: $address")
-            if (address.isNullOrEmpty()) {
-                if (!isFinishing) {
-                    AlertDialog.Builder(this).apply {
-                        setTitle("Hallo!")
-                        setMessage("Hello, this account has not added an address. Add address first.")
-                        setPositiveButton("Add Address") { _, _ ->
-                            Log.i("MainActivity", "onCreate: Add Address")
-                        }
-                        create()
-                        show()
-                    }
-                }
+            setupHome()
+
+            val scrollingFragmentRecProduct = ScrollingFragmentRecProduct()
+
+            binding.btnSeeAll.setOnClickListener {
+                scrollingFragmentRecProduct.show(
+                    supportFragmentManager,
+                    "ScrollingFragmentRecProduct"
+                )
             }
         }
 
@@ -162,9 +168,9 @@ class MainActivity : AppCompatActivity() {
         val isHorizontal = true
         productRecommendationAdapter(true)
         allProductAdapter(isHorizontal)
-        setupViewBaner()
-        setupAction()
+        checkAndRequestLocationPermission()
     }
+
 
     private fun setupAction() {
         binding.txtName.text = sessionManager.getUsername()
@@ -180,11 +186,9 @@ class MainActivity : AppCompatActivity() {
         val productAdapter = ProductRecomendationAdapter(
             events = listOf(),
             onItemClick = { dataItem ->
-                Log.d(
-                    "MainActivity",
-                    "Clicked item: ${dataItem.image?.let { helper.removePath(it) }}"
-                )
-                Toast.makeText(this, "Clicked: ${dataItem.name}", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, DetailProductActivity::class.java)
+                intent.putExtra("id", dataItem.id)
+                startActivity(intent)
             }
         )
 
@@ -213,11 +217,10 @@ class MainActivity : AppCompatActivity() {
         val allProductAdapter = AllProductAdapter(
             events = listOf(),
             onItemClick = { dataItem ->
-                Log.d(
-                    "MainActivity",
-                    "Clicked item: ${dataItem.image?.let { helper.removePath(it) }}"
-                )
-                Toast.makeText(this, "Clicked: ${dataItem.name}", Toast.LENGTH_SHORT).show()
+                //berpindah ke halaman detail product
+                val intent = Intent(this, DetailProductActivity::class.java)
+                intent.putExtra("id", dataItem.id)
+                startActivity(intent)
             }
         )
 
@@ -246,10 +249,14 @@ class MainActivity : AppCompatActivity() {
         val runnable = object : Runnable {
             override fun run() {
                 if (isDestroyed) return // Check if the activity is destroyed
-
                 val weather_main = weatherModel.weather.value?.data?.weather_main.toString()
+                val weather_location = sessionManager.getCityName()
+                binding.txtCity.text = weather_location
                 binding.txtWeather.text = weather_main
-                binding.txtTemperature.text = helper.roundToNearestInteger(weatherModel.weather.value?.data?.temperature.toString()).toString()
+
+                binding.txtTemperature.text =
+                    helper.roundToNearestInteger(weatherModel.weather.value?.data?.temperature.toString())
+                        .toString()
                 Log.d("MainActivity", "Weather: $weather_main")
                 weatherData.forEach {
                     if (it.category == weather_main) {
@@ -257,7 +264,9 @@ class MainActivity : AppCompatActivity() {
                         binding.txtWeatherMessage.text = it.description
                     }
                 }
-                handler.postDelayed(this, 1000)
+                val delay =
+                    if (weather_main == "null") 1000L else 3600000L // 1 second if null, 1 hour otherwise
+                handler.postDelayed(this, delay)
             }
         }
         handler.post(runnable)
@@ -271,10 +280,75 @@ class MainActivity : AppCompatActivity() {
         }, 1500)
     }
 
-    private fun navigateToFragment(fragment: Fragment) {
-        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+    private fun checkAndRequestLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                locationPermissionCode
+            )
+        } else {
+            fetchAndSaveLocation()
+            setupAction()
+        }
     }
+
+    private fun fetchAndSaveLocation() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+//        untuk mengecek apakah permission sudah diberikan atau belum
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                val latitude = location.latitude.toString()
+                val longitude = location.longitude.toString()
+                val profileRepository = ProfileRepository(apiService)
+                lifecycleScope.launch {
+                    profileRepository.checkAndSaveAddress(latitude, longitude)
+                }
+                getCityFromCoordinates(location.latitude, location.longitude)
+                setupViewBaner()
+                Log.d("MainActivity", "Location saved: $latitude, $longitude")
+            } else {
+                Toast.makeText(this, "Lokasi tidak tersedia", Toast.LENGTH_SHORT).show()
+            }
+        }
+        weatherModel.fetchDataWeather()
+    }
+
+    fun getCityFromCoordinates(latitude: Double, longitude: Double): String {
+        val geocoder = Geocoder(this, Locale.getDefault())
+        try {
+            val addresses: MutableList<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+            if (!addresses.isNullOrEmpty()) {
+                val address = addresses[0]
+                sessionManager.saveCityName(address.locality)
+                Log.i("", "getCityFromCoordinates: "+address.locality)
+                return address.locality ?: "Indonesia"
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return "Indonesia"
+    }
+
 }

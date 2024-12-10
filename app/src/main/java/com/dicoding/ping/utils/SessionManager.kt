@@ -11,11 +11,9 @@ class SessionManager(context: Context) {
         //        for Register
         private const val EMAIL_KEY = "email"
         private const val TOKEN_KEY = "token"
-
         //        for Forgot Password
         private const val EMAIL_FORGOT_PASSW_KEY = "email_forgot_password"
         private const val OTP_FORGOT_PASSWORD_KEY = "otp_forgot_password"
-
         //        for Login
         private const val USERNAME_KEY = "username"
         private const val EMAil_USER = "email_user"
@@ -23,7 +21,19 @@ class SessionManager(context: Context) {
         private const val ADDRESS_USER = "address_user"
         private const val IS_LOGIN = "is_login"
         private const val USER_ID = "user_id"
+        private const val CITY_NAME = "city_name"
     }
+
+    fun saveCityName(cityName: String) {
+        val editor = prefs.edit()
+        editor.putString(CITY_NAME, cityName)
+        editor.apply()
+    }
+
+    fun getCityName(): String? {
+        return prefs.getString(CITY_NAME, null)
+    }
+
 
     fun saveAddressUser(address: String) {
         val editor = prefs.edit()
@@ -72,6 +82,11 @@ class SessionManager(context: Context) {
         editor.putString(ROLE_USER, role)
         editor.apply()
     }
+
+    fun getRole(): String? {
+        return prefs.getString(ROLE_USER, null)
+    }
+
 
     fun saveEmail(email: String) {
         val editor = prefs.edit()

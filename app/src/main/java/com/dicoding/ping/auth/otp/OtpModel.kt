@@ -69,13 +69,11 @@ class OtpModel(private val repository: AuthRepository) : ViewModel() {
                 if (response.success == true) {
                     Log.d("Otp", "Resend Otp successful: ${response.message}")
                     Log.d("Otp", "Resend Otp result: ${response.result}")
-                    response.result?.let {
-                        it.otp_code?.let { it1 ->
-                            sessionManager.saveOtpForgotPassword(
-                                it1
-                            )
-                        }
-                    }
+                    response.result?.let { it.otp_code?.let { it1 ->
+                        sessionManager.saveOtpForgotPassword(
+                            it1
+                        )
+                    } }
                     onResult(response.success)
                 } else {
                     Log.d("Otp", "Resend Otp failed: ${response.message}")
@@ -91,16 +89,10 @@ class OtpModel(private val repository: AuthRepository) : ViewModel() {
         }
     }
 
-    fun resetPassowrd(
-        otp_code: String,
-        email: String,
-        newPasword: String,
-        onResult: (Boolean) -> Unit
-    ) {
+    fun resetPassowrd(otp_code: String, email: String, newPasword: String, onResult: (Boolean) -> Unit) {
         viewModelScope.launch {
             try {
-                val response: ForgotPasswordResponse =
-                    repository.resetPassword(otp_code, email, newPasword)
+                val response: ForgotPasswordResponse = repository.resetPassword(otp_code, email, newPasword)
                 if (response.success == true) {
                     Log.d("Reset Passoword", "Reset Passoword successful: ${response.message}")
                     Log.d("Reset Passoword", "Reset Passoword result: ${response}")
@@ -110,10 +102,7 @@ class OtpModel(private val repository: AuthRepository) : ViewModel() {
                     onResult(false)
                 }
             } catch (e: HttpException) {
-                Log.e(
-                    "Reset Passoword",
-                    "HTTP Error: ${e.code()} - ${e.response()?.errorBody()?.string()}"
-                )
+                Log.e("Reset Passoword", "HTTP Error: ${e.code()} - ${e.response()?.errorBody()?.string()}")
                 onResult(false)
             } catch (e: Exception) {
                 Log.e("Reset Passoword", "Unexpected Error", e)

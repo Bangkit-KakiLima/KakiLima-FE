@@ -42,6 +42,8 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
         otpModel.setSessionManager(sessionManager)
 
         val resendOtpTextView = binding.txtResendOtp
+
+        // Membuat SpannableString untuk teks
         val spannableStringSignUp = SpannableString("Resend again")
         resendOtpTextView.text = spannableStringSignUp
 
@@ -49,6 +51,7 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
 
+                    // Ubah warna teks menjadi warna custom (#4DA0C1) dan tambahkan underline
                     val spannableHover = SpannableString("Resend again")
                     spannableHover.setSpan(
                         ForegroundColorSpan(Color.parseColor("#4DA0C1")),
@@ -66,6 +69,7 @@ class OtpForgotPasswordActivity : AppCompatActivity() {
                 }
 
                 MotionEvent.ACTION_UP -> {
+                    // Kembalikan teks ke tampilan awal (tanpa warna biru dan underline)
                     binding.txtResendOtp.text = SpannableString("Resend again")
                     binding.txtResendOtp.performClick() // Panggil performClick untuk aksesibilitas
                 }

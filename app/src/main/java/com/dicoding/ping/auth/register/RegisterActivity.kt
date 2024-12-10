@@ -15,12 +15,14 @@ import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.dicoding.ping.R
 import com.dicoding.ping.api.RetrofitClient
 import com.dicoding.ping.auth.AuthRepository
 import com.dicoding.ping.auth.login.LoginActivity
 import com.dicoding.ping.auth.otp.OtpRegisterActivity
 import com.dicoding.ping.databinding.ActivityRegisterBinding
 import com.dicoding.ping.utils.SessionManager
+import com.google.android.material.textfield.TextInputLayout
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -39,8 +41,11 @@ class RegisterActivity : AppCompatActivity() {
 
         repository = AuthRepository.getInstance(RetrofitClient.apiService)
         sessionManager = SessionManager(this)
+        registerModel.setSessionManager(sessionManager)
 
         val loginTextView = binding.txtLogin
+
+        // Membuat SpannableString untuk teks
         val spannableStringSignUp = SpannableString("Log In")
         loginTextView.text = spannableStringSignUp
 
@@ -48,6 +53,7 @@ class RegisterActivity : AppCompatActivity() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
 
+                    // Ubah warna teks menjadi warna custom (#4DA0C1) dan tambahkan underline
                     val spannableHover = SpannableString("Log In")
                     spannableHover.setSpan(
                         ForegroundColorSpan(Color.parseColor("#4DA0C1")),
@@ -65,9 +71,11 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 MotionEvent.ACTION_UP -> {
+                    // Kembalikan teks ke tampilan awal (tanpa warna biru dan underline)
                     binding.txtLogin.text = SpannableString("Log In")
                     binding.txtLogin.performClick() // Panggil performClick untuk aksesibilitas
 
+                    // Navigasi ke halaman Login
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 }
@@ -161,18 +169,22 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupPasswordValidation() {
+        val passwordInputLayout = findViewById<TextInputLayout>(R.id.passwordInputLayout)
         binding.etPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s != null && s.length < 8) {
+                    passwordInputLayout.endIconMode = TextInputLayout.END_ICON_NONE
                     binding.etPassword.error = "Password cannot be less than 8 characters"
                 } else {
                     binding.etPassword.error = null
+                    passwordInputLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
     }
+
 }

@@ -10,9 +10,8 @@ import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
-import android.util.Log
-import android.view.KeyEvent
 import android.view.MotionEvent
+import android.view.KeyEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -48,8 +47,12 @@ class OtpRegisterActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun setupSpannableText() {
         val resendOtpTextView = binding.txtResendOtp
+
+        // Membuat SpannableString untuk teks "Resend again"
         val spannableStringSignUp = SpannableString("Resend again")
         resendOtpTextView.text = spannableStringSignUp
+
+        // Menambahkan efek hover pada teks "Resend again"
         resendOtpTextView.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
@@ -68,6 +71,7 @@ class OtpRegisterActivity : AppCompatActivity() {
                     )
                     resendOtpTextView.text = spannableHover
                 }
+
                 MotionEvent.ACTION_UP -> {
                     resendOtpTextView.text = SpannableString("Resend again")
                     resendOtpTextView.performClick()

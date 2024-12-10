@@ -51,7 +51,7 @@ class AuthRepository(
         return apiService.getUserData()
     }
 
-    suspend fun getAddres(): GetAddressResponse? {
+    suspend fun getAddres(): GetAddressResponse {
         return apiService.getAddress()
     }
 

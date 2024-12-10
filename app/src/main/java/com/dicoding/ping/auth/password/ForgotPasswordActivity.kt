@@ -12,7 +12,6 @@ import com.dicoding.ping.auth.otp.OtpModelFactory
 import com.dicoding.ping.databinding.ActivityForgotPasswordBinding
 import com.dicoding.ping.utils.SessionManager
 
-
 class ForgotPasswordActivity : AppCompatActivity() {
     lateinit var repository: AuthRepository
     private lateinit var sessionManager: SessionManager

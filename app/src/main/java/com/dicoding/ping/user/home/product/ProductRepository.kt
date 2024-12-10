@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.ping.api.ApiService
-import retrofit2.Response
 
 class ProductRepository(private val apiService: ApiService) {
 
@@ -13,6 +12,9 @@ class ProductRepository(private val apiService: ApiService) {
 
     private val _productsRecommendations = MutableLiveData<List<DataItem>>()
     val productsRecommendations: LiveData<List<DataItem>> = _productsRecommendations
+
+    private val _productDetail = MutableLiveData<ProductDetailResponse>()
+    val productDetail: LiveData<ProductDetailResponse> = _productDetail
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -39,10 +41,6 @@ class ProductRepository(private val apiService: ApiService) {
         }
     }
 
-    suspend fun getProductById(id: Int): Response<ProductDetail> {
-        return apiService.getProductById(id)
-    }
-
     suspend fun getProductsByCategory(category: String): List<DataItem>? {
         return try {
             val response = apiService.getProductsByCategory(category)
@@ -56,4 +54,9 @@ class ProductRepository(private val apiService: ApiService) {
             null
         }
     }
+
+    suspend fun getProductById(id: Int): ProductDetailResponse {
+        return apiService.getProductById(id)
+    }
+
 }

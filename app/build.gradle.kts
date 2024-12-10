@@ -54,7 +54,6 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.media3.common.ktx)
 
-
     // Testing libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit.v115)

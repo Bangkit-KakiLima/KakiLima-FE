@@ -22,6 +22,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <activity
+            android:name=".user.home.product.DetailProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.LoadingActivity"
             android:exported="false" />
         <activity

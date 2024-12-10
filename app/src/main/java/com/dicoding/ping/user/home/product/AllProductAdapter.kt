@@ -10,10 +10,7 @@ import com.bumptech.glide.Glide
 import com.dicoding.ping.R
 import com.dicoding.ping.utils.Helper
 
-class AllProductAdapter(
-    private var events: List<DataItem>,
-    private val onItemClick: (DataItem) -> Unit
-) : RecyclerView.Adapter<AllProductAdapter.ProductViewHolder>() {
+class AllProductAdapter(private var events: List<DataItem>, private val onItemClick: (DataItem) -> Unit) : RecyclerView.Adapter<AllProductAdapter.ProductViewHolder>() {
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var helper: Helper = Helper()
         val productImage: ImageView = itemView.findViewById(R.id.imageLogo)
@@ -23,17 +20,21 @@ class AllProductAdapter(
         fun bind(event: DataItem, onItemClick: (DataItem) -> Unit) {
             productName.text = event.name ?: "Unnamed Event"
             productStatus.text = event.merchant?.status ?: "Unknown Status"
-
+            if(event.merchant?.status == "tutup") {
+                productStatus.setTextColor(itemView.context.resources.getColor(R.color.red))
+            } else {
+                productStatus.setTextColor(itemView.context.resources.getColor(R.color.green))
+            }
             Glide.with(itemView.context)
                 .load(event.image?.let { helper.removePath(it) })
                 .into(productImage)
             itemView.setOnClickListener { onItemClick(event) }
+
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_all_product, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_all_product, parent, false)
         return ProductViewHolder(view)
     }
 
