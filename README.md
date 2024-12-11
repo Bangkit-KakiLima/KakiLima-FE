@@ -14,11 +14,11 @@ Aplikasi mobile untuk mendukung platform Kaki Lima, yang memungkinkan pengguna u
 
 ## Fitur
 
-- **Live Location Tracking**: Memungkinkan pengguna melacak lokasi pedagang kaki lima secara real-time.
-- **Pemesanan Produk**: Fitur untuk memesan produk dengan konfirmasi dua pihak (penjual dan pembeli).
-- **Penanda Titik Mangkal**: Menampilkan titik-titik mangkal pedagang pada peta.
-- **Notifikasi Real-Time**: Pengguna menerima notifikasi saat pedagang mendekati lokasi mereka.
+- **Location Tracking**: Memungkinkan pengguna melacak lokasi pedagang kaki lima secara real-time.
+- **Lokasi Pedagang Produk**: Fitur untuk memesan produk dengan konfirmasi dua pihak (penjual dan pembeli).
 - **Manajemen Profil**: Pengguna dapat mengelola akun mereka.
+- **Live Weather Based On Location**: Pengguna dapat mengelola akun mereka.
+- **Product Recommendation Based on Weather**: Pengguna dapat mengelola akun mereka.
 
 ## Persyaratan Sistem
 
