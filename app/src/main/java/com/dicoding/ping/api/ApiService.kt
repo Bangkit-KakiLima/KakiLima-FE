@@ -57,6 +57,9 @@ interface ApiService {
     @GET("product/category/{category}")
     suspend fun getProductsByCategory(@Path("category") category: String): GetAllProductResponse
 
+    @POST("product/ml/recommendations")
+    suspend fun getProductsRecomendationByMl(): ProdRecFromMlResponse
+
     //    Location
     @GET("locations")
     suspend fun getAllLocations(): List<LocationResponse>
@@ -72,6 +75,5 @@ interface ApiService {
 
     @PUT("address/location")
     suspend fun updateAddress(@Body request: AddAdressRequest): AddAddressResponse
-
 
 }
