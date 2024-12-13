@@ -13,6 +13,7 @@ import com.dicoding.ping.auth.register.RegisterResponse
 import com.dicoding.ping.banner.weather.WeatherResponse
 import com.dicoding.ping.user.UserDataResponse
 import com.dicoding.ping.user.home.product.GetAllProductResponse
+import com.dicoding.ping.user.home.product.ProdRecFromMlResponse
 import com.dicoding.ping.user.home.product.ProductDetailResponse
 import com.dicoding.ping.user.locations.LocationResponse
 import com.dicoding.ping.user.profile.address.AddAddressResponse

@@ -22,6 +22,17 @@ class SessionManager(context: Context) {
         private const val IS_LOGIN = "is_login"
         private const val USER_ID = "user_id"
         private const val CITY_NAME = "city_name"
+        private const val FULL_ADDRESS = "full_address"
+    }
+
+    fun saveFullAddress(fullAddress: String) {
+        val editor = prefs.edit()
+        editor.putString(FULL_ADDRESS, fullAddress)
+        editor.apply()
+    }
+
+    fun getFullAddress(): String? {
+        return prefs.getString(FULL_ADDRESS, null)
     }
 
     fun saveCityName(cityName: String) {
@@ -71,11 +82,6 @@ class SessionManager(context: Context) {
         return prefs.getString(USERNAME_KEY, null)
     }
 
-    fun saveEmailUser(email: String) {
-        val editor = prefs.edit()
-        editor.putString(EMAil_USER, email)
-        editor.apply()
-    }
 
     fun saveRole(role: String) {
         val editor = prefs.edit()
