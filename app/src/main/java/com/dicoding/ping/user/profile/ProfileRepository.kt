@@ -1,5 +1,6 @@
 package com.dicoding.ping.user.profile
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +10,7 @@ import com.dicoding.ping.user.profile.address.GetAddressResponse
 import com.dicoding.ping.user.profile.address.NewAddressData
 import retrofit2.HttpException
 
-class ProfileRepository(private val apiService: ApiService) {
+class ProfileRepository(private val apiService: ApiService, requireContext: Context) {
 
     private val _addAddressResponse = MutableLiveData<List<NewAddressData>>()
     val addAddressResponse: LiveData<List<NewAddressData>> get() = _addAddressResponse
@@ -38,29 +39,12 @@ class ProfileRepository(private val apiService: ApiService) {
 
     suspend fun checkAndSaveAddress(lat: String, lon: String) {
         try {
-            val existingData = apiService.getAddress()
-            if (existingData.data == null) {
-                val addRequest = AddAdressRequest(lat, lon)
-                val response = apiService.addAddress(addRequest)
-                Log.d("ProfileRepository", "Data added successfully: ${response.data}")
-            } else {
-                val updateRequest = AddAdressRequest(lat, lon)
-                val response = apiService.updateAddress(updateRequest)
-                Log.d("ProfileRepository", "Data updated successfully: ${response.data}")
-            }
+            val addRequest = AddAdressRequest(lat, lon)
+            val response = apiService.addAddress(addRequest)
+            Log.d("ProfileRepository", "Data added successfully: ${response.data}")
         } catch (e: Exception) {
             Log.e("ProfileRepository", "Error in checkAndSaveAddress: ${e.message}")
         }
     }
-
-    suspend fun fetchAddress() {
-        try {
-            val response = apiService.getAddress()
-            Log.d("ProfileRepository", "fetchAddress: $response")
-        } catch (e: Exception) {
-            Log.e("ProfileRepository", "Error fetching address: ${e.message}")
-        }
-    }
-
 
 }

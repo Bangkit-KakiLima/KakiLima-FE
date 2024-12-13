@@ -6,11 +6,13 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.dicoding.ping.R
 import com.dicoding.ping.api.RetrofitClient
 import com.dicoding.ping.auth.login.LoginActivity
+import com.dicoding.ping.auth.password.ForgotPasswordActivity
 import com.dicoding.ping.databinding.ActivityProfileBinding
 import com.dicoding.ping.user.UserModel
 import com.dicoding.ping.user.UserModelFactory
@@ -29,8 +31,10 @@ class ProfileActivity : AppCompatActivity() {
         val apiService = RetrofitClient.apiService
         userRepository = UserRepository(apiService)
 
+        // Create the ViewModel with the repository
         val viewModelFactory = UserModelFactory(userRepository)
         viewModelFactory.create(UserModel::class.java).apply {
+            // Explicitly set the SessionManager
             setSessionManager(SessionManager(this@ProfileActivity))
         }
     }
@@ -41,13 +45,22 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         sessionManager = SessionManager(this)
 
+        // set nama pengguna dari session
         binding.profileName.text = sessionManager.getUsername()
-        binding.editProfile.setOnClickListener {
-            navigateToFragment(EditProfileFragment())
+
+        // Navigasi ke fragment edit profil atau edit alamat
+        binding.showProfile.setOnClickListener {
+            navigateToFragment(ShowProfileFragment())
         }
 
-        binding.address.setOnClickListener {
-            navigateToFragment(EditAddressFragment())
+        // Navigasi ke ChangePasswordFragment
+        binding.changePassword.setOnClickListener {
+            navigateWithLoading(ForgotPasswordActivity::class.java)
+        }
+
+        // Navigasi ke Profil
+        binding.showProfile.setOnClickListener {
+            navigateToFragment(ShowProfileFragment())
         }
 
         // Navigasi menggunakan bottom navigation
@@ -59,14 +72,17 @@ class ProfileActivity : AppCompatActivity() {
                     navigateWithLoading(MainActivity::class.java)
                     true
                 }
+
                 R.id.location -> {
                     navigateWithLoading(LokasiActivity::class.java)
                     true
                 }
+
                 R.id.profile -> {
                     navigateWithLoading(ProfileActivity::class.java)
                     true
                 }
+
                 else -> false
             }
         }
@@ -74,16 +90,25 @@ class ProfileActivity : AppCompatActivity() {
         setupAction()
     }
 
+
     private fun setupAction() {
+        // Tombol logout
         binding.logout.setOnClickListener {
-            userModel.logout()
-            navigateToLogin()
+            AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes") { _, _ ->
+                    userModel.logout()
+                    navigateToLogin()
+                }
+                .setNegativeButton("No", null)
+                .show()
         }
     }
 
     private fun navigateToLogin() {
         navigateWithLoading(LoginActivity::class.java)
-        finish()
+//        finish()
     }
 
     private fun navigateWithLoading(targetActivity: Class<*>) {

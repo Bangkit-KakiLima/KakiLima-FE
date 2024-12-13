@@ -5,5 +5,7 @@ class Lokasi(
     val imageUrl: String,
     val rating: Double,
     val isOpen: Boolean,
-    val distance: Double
+    val distance: Double,
+    val latitude: Double,
+    val longitude: Double
 )

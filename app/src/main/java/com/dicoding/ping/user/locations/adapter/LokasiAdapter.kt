@@ -12,8 +12,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.ping.R
 import com.dicoding.ping.user.locations.model.Lokasi
 
-class LokasiAdapter(private val lokasiList: ArrayList<Lokasi>) :
-    RecyclerView.Adapter<LokasiAdapter.LokasiViewHolder>() {
+class LokasiAdapter(private val lokasiList: ArrayList<Lokasi>, private val onItemClick: (Lokasi) -> Unit
+) : RecyclerView.Adapter<LokasiAdapter.LokasiViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LokasiViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_lokasi, parent, false)
@@ -35,11 +35,14 @@ class LokasiAdapter(private val lokasiList: ArrayList<Lokasi>) :
         holder.ratingText.text = lokasi.rating.toString()
         holder.distanceView.text = String.format("%.2f km", lokasi.distance)
         if (lokasi.isOpen) {
-            holder.itemStatus.text = "Buka"
+            holder.itemStatus.text = "Open"
             holder.itemStatus.setTextColor(0xFF4CAF50.toInt())
         } else {
-            holder.itemStatus.text = "Tutup"
+            holder.itemStatus.text = "Closed"
             holder.itemStatus.setTextColor(0xFFF44336.toInt())
+        }
+        holder.itemView.setOnClickListener {
+            onItemClick(lokasi)
         }
     }
 
