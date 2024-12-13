@@ -1,5 +1,6 @@
 package com.dicoding.ping.user.home.kategori.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +12,43 @@ import com.dicoding.ping.R
 import com.dicoding.ping.api.RetrofitClient
 import com.dicoding.ping.user.home.product.DataItem
 
-class CategoryAdapter(private val productList: List<DataItem>) :
-    RecyclerView.Adapter<CategoryAdapter.MakananViewHolder>() {
+class CategoryAdapter(
+    private val productList: List<DataItem>,
+    private val onItemClick: (DataItem) -> Unit
+) : RecyclerView.Adapter<CategoryAdapter.MakananViewHolder>() {
+
     inner class MakananViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.item_name)
         val price: TextView = itemView.findViewById(R.id.item_price)
         val image: ImageView = itemView.findViewById(R.id.item_image)
-        val decs: TextView = itemView.findViewById(R.id.item_description)
+        val status: TextView = itemView.findViewById(R.id.item_status)
+        val description: TextView = itemView.findViewById(R.id.item_description)
+
+
+        // Bind data to views and set up the onClick listener
+        fun bind(product: DataItem) {
+            name.text = product.name
+            description.text = product.description
+            if (product.merchant?.status == "tutup") {
+                status.text = "Closed"
+                status.setTextColor(itemView.context.resources.getColor(R.color.red))
+            } else {
+                status.text = "Open"
+                status.setTextColor(itemView.context.resources.getColor(R.color.green))
+            }
+            // Construct the full image URL
+            val fullImageUrl = "${RetrofitClient.getBaseIp()}/images/products/${product.image}"
+            Log.d("CategoryAdapter", "bind: $fullImageUrl")
+            Log.d("CategoryAdapter", "bind: ${product.image}")
+            Glide.with(itemView.context)
+                .load(fullImageUrl)
+                .into(image)
+
+            // Set the onClick listener to call the onItemClick function
+            itemView.setOnClickListener {
+                onItemClick(product)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MakananViewHolder {
@@ -27,13 +58,9 @@ class CategoryAdapter(private val productList: List<DataItem>) :
 
     override fun onBindViewHolder(holder: MakananViewHolder, position: Int) {
         val product = productList[position]
-        val fullImageUrl = RetrofitClient.getBaseIp() + "/images/products/" + product.image
-        holder.name.text = product.name
-        holder.decs.text = product.description
-        holder.price.text = product.price
-
-        Glide.with(holder.itemView.context).load(fullImageUrl).into(holder.image)
+        holder.bind(product) // Bind the product to the ViewHolder
     }
 
     override fun getItemCount(): Int = productList.size
 }
+

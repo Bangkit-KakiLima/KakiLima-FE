@@ -67,26 +67,26 @@ class MainActivity : AppCompatActivity() {
         Weather(
             id = 1,
             category = "Rain",
-            description = "Cuaca hujan bikin suasana lebih nyaman, ayo lengkapi harimu dengan yang terbaik! Jangan sampai terlewat.",
+            description = "Rainy weather is perfect for something warm. Enjoy a selection of hot drinks and comforting meals that make the atmosphere cozy",
             imageUrl = "https://i.pinimg.com/736x/7a/44/19/7a44199aff3fd42c45b1807feb518fa4.jpg"
         ),
         Weather(
             id = 2,
             category = "Drizzle",
-            description = "Langit mendung, tapi semangat tetap harus cerah! Buat harimu lebih seru dengan hal istimewa ini!",
-            imageUrl = "https://i.pinimg.com/736x/28/85/71/28857188f7a6757d5dba9d3f339f1bec.jpg"
+            description = "Light drizzle creates a soothing vibe. It’s the perfect time for warm snacks and sweet drinks to accompany your day",
+            imageUrl = "file:///C:/Users/asusu/Downloads/high-angle-closeup-shot-isolated-green-leaf-puddle-rainy-day.jpg"
         ),
         Weather(
             id = 3,
             category = "Clouds",
-            description = "Cuaca panas? Waktunya cari sesuatu yang bikin segar dan nyaman. Yuk, jangan tunggu lama-lama!",
-            imageUrl = "https://i.pinimg.com/736x/b9/39/79/b939794266cf899fbbd55435efd2a402.jpg"
+            description = "Cloudy skies don’t have to be dull. Discover delicious food and favorite drinks that bring cheer to your day",
+            imageUrl = "https://i.pinimg.com/736x/ff/08/a6/ff08a64470b936483bc51b823cb726eb.jpg"
         ),
         Weather(
             id = 4,
             category = "Clear",
-            description = "Matahari bersinar terang, saatnya menikmati hari dengan penuh semangat. Temukan pilihan yang bikin harimu lebih spesial!",
-            imageUrl = "https://i.pinimg.com/736x/ff/08/a6/ff08a64470b936483bc51b823cb726eb.jpg"
+            description = "Clear skies and fresh air? It’s the perfect moment to enjoy cold drinks and light snacks that make your day even better",
+            imageUrl = "https://i.pinimg.com/736x/b9/39/79/b939794266cf899fbbd55435efd2a402.jpg"
         )
     )
 
@@ -111,13 +111,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Initialize RetrofitClient with application context
         RetrofitClient.initialize(applicationContext)
 
+        // Initialize the sessionManager and userRepository properties
         sessionManager = SessionManager(this)
         userRepository = UserRepository.getInstance(apiService)
         userModel.setSessionManager(sessionManager)
         if (!sessionManager.getIsLogin()) {
-            navigateToLogin()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
         } else {
             setupHome()
 
@@ -178,14 +182,11 @@ class MainActivity : AppCompatActivity() {
         productViewModel.fetchAllProductsRecommendations()
     }
 
-    private fun navigateToLogin() {
-        navigateWithLoading(LoginActivity::class.java)
-    }
-
     private fun productRecommendationAdapter(isHorizontal: Boolean) {
         val productAdapter = ProductRecomendationAdapter(
             events = listOf(),
             onItemClick = { dataItem ->
+                //berpindah ke halaman detail product
                 val intent = Intent(this, DetailProductActivity::class.java)
                 intent.putExtra("id", dataItem.id)
                 startActivity(intent)
@@ -265,7 +266,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 val delay =
-                    if (weather_main == "null") 1000L else 3600000L // 1 second if null, 1 hour otherwise
+                    if (weather_main == "null") 1000L else 10800000L // 1 second if null, 3 hour otherwise
                 handler.postDelayed(this, delay)
             }
         }
@@ -283,12 +284,12 @@ class MainActivity : AppCompatActivity() {
     private fun checkAndRequestLocationPermission() {
         if (ActivityCompat.checkSelfPermission(
                 this,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                android.Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
                 locationPermissionCode
             )
         } else {
@@ -321,11 +322,12 @@ class MainActivity : AppCompatActivity() {
             if (location != null) {
                 val latitude = location.latitude.toString()
                 val longitude = location.longitude.toString()
-                val profileRepository = ProfileRepository(apiService)
+                val profileRepository = ProfileRepository(apiService, this)
                 lifecycleScope.launch {
                     profileRepository.checkAndSaveAddress(latitude, longitude)
                 }
                 getCityFromCoordinates(location.latitude, location.longitude)
+                getFullAddressFromCoordinates(location.latitude, location.longitude)
                 setupViewBaner()
                 Log.d("MainActivity", "Location saved: $latitude, $longitude")
             } else {
@@ -335,15 +337,32 @@ class MainActivity : AppCompatActivity() {
         weatherModel.fetchDataWeather()
     }
 
-    fun getCityFromCoordinates(latitude: Double, longitude: Double): String {
+    fun getCityFromCoordinates(latitude: Double, longitude: Double): String? {
         val geocoder = Geocoder(this, Locale.getDefault())
         try {
             val addresses: MutableList<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
             if (!addresses.isNullOrEmpty()) {
                 val address = addresses[0]
                 sessionManager.saveCityName(address.locality)
-                Log.i("", "getCityFromCoordinates: "+address.locality)
+                Log.i("", "getCityFromCoordinates: " + address.locality)
                 return address.locality ?: "Indonesia"
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return "Indonesia"
+    }
+
+    fun getFullAddressFromCoordinates(latitude: Double, longitude: Double): String? {
+        val geocoder = Geocoder(this, Locale.getDefault())
+        try {
+            val addresses: MutableList<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+            if (!addresses.isNullOrEmpty()) {
+                val address = addresses[0]
+                val fullAddress = address.getAddressLine(0).substringAfter(" ")
+                sessionManager.saveFullAddress(fullAddress)
+                Log.i("MainActivity", "getFullAddressFromCoordinates: $fullAddress")
+                return fullAddress ?: "Indonesia"
             }
         } catch (e: Exception) {
             e.printStackTrace()

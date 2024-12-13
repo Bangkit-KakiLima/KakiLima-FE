@@ -10,6 +10,7 @@ class ProductModel(private val repository: ProductRepository) : ViewModel() {
 
     val products: LiveData<List<DataItem>> = repository.products
     val productsRecommendations: LiveData<List<DataItem>> = repository.productsRecommendations
+    val productsRecommendationsFromMl: LiveData<List<DataItemResponse>> = repository.productRecomendationFromMl
     val errorMessage: LiveData<String> = repository.errorMessage
 
     private val _productDetailLiveData = MutableLiveData<ProductDetailResponse?>()
@@ -30,6 +31,12 @@ class ProductModel(private val repository: ProductRepository) : ViewModel() {
     fun fetchAllProductsRecommendations() {
         viewModelScope.launch {
             repository.getAllRecommendationProducts()
+        }
+    }
+
+    fun fetchAllProductsRecommendationsFromMl() {
+        viewModelScope.launch {
+            repository.getProductRecommendationFromMl()
         }
     }
 

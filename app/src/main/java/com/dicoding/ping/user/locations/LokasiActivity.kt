@@ -9,6 +9,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -17,6 +20,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.dicoding.ping.R
 import com.dicoding.ping.user.locations.adapter.LokasiAdapter
 import com.dicoding.ping.api.RetrofitClient.apiService
@@ -31,9 +36,10 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityLokasiBinding
@@ -43,6 +49,8 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
     private val locationPermissionCode = 100
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var googleMap: GoogleMap? = null
+    private val markerMap = mutableMapOf<Lokasi, Marker>()
+    private var merchantName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,8 +72,14 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Data Dummy
         val lokasiList = ArrayList<Lokasi>()
-
-        val adapter = LokasiAdapter(lokasiList)
+        merchantName = intent.getStringExtra("merchant_name") ?: ""
+        val adapter = LokasiAdapter(lokasiList) { lokasi ->
+            val latLng = LatLng(lokasi.latitude, lokasi.longitude)
+            googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+            val marker = markerMap[lokasi]
+            marker?.showInfoWindow()
+            showDetailBottomSheet(lokasi)
+        }
         recyclerView.setAdapter(adapter)
         val repository = LocationRepository.getInstance(apiService)
         viewModel = ViewModelProvider(
@@ -107,19 +121,31 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun showMarkers(locations: List<LocationResponse>) {
         googleMap?.let { map ->
+            val filteredLocations = if (!merchantName.isNullOrEmpty()) {
+                locations.filter { it.merchant.business_name == merchantName }
+            } else {
+                locations
+            }
+
+            if (filteredLocations.isEmpty()) {
+                Toast.makeText(this, "Merchant tidak ditemukan", Toast.LENGTH_SHORT).show()
+                return
+            }
+
             fusedLocationClient.lastLocation.addOnSuccessListener { userLocation ->
                 if (userLocation != null) {
                     val userLat = userLocation.latitude
                     val userLng = userLocation.longitude
-                    val sortedLocations = locations.map { location ->
+                    val sortedLocations = filteredLocations.map { location ->
                         val distance = calculateDistance(
                             userLat, userLng,
                             location.latitude.toDouble(), location.longitude.toDouble()
                         )
                         Pair(location, distance)
                     }.sortedBy { it.second }
-                    val nearestLocations = sortedLocations.take(5)
+                    val nearestLocations = sortedLocations.take(15)
                     val adapter = recyclerView.adapter as LokasiAdapter
+
                     for (pair in nearestLocations) {
                         val location = pair.first
                         val distance = pair.second
@@ -129,15 +155,39 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
                                 .position(latLng)
                                 .title("${location.merchant.business_name} (${String.format("%.2f km", distance)})")
                         )
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+
                         val isOpen = location.merchant.status.lowercase() == "buka"
-                        Log.i(location.merchant.business_name, "showMarkers: "+isOpen)
                         val nearestLokasi = Lokasi(
-                            location.merchant.business_name,
-                            location.merchant.products.firstOrNull()?.image ?: R.drawable.ic_launcher_background.toString(),
-                            location.merchant.average_rating,
-                            isOpen,
-                            distance
+                            name = location.merchant.business_name,
+                            imageUrl = location.merchant.products.firstOrNull()?.image
+                                ?: R.drawable.ic_launcher_background.toString(),
+                            rating = location.merchant.average_rating,
+                            isOpen = isOpen,
+                            distance = distance,
+                            latitude = location.latitude.toDouble(),
+                            longitude = location.longitude.toDouble()
                         )
+
+                        val marker = map.addMarker(
+                            MarkerOptions()
+                                .position(latLng)
+                                .title("${location.merchant.business_name} (${String.format("%.2f km", distance)})")
+                        )
+
+                        googleMap?.setOnMarkerClickListener { marker ->
+                            val lokasi = markerMap.entries.find { it.value == marker }?.key
+                            lokasi?.let {
+                                showDetailBottomSheet(it)
+                            }
+                            marker.showInfoWindow()
+                            true
+                        }
+
+                        marker?.let {
+                            markerMap[nearestLokasi] = it
+                        }
+
                         adapter.addLokasi(nearestLokasi)
                     }
                     adapter.notifyDataSetChanged()
@@ -147,6 +197,8 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
+
+
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
@@ -242,4 +294,31 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
             binding.loadingLokasi.visibility = View.GONE // Sembunyikan ProgressBar
         }, 1500)
     }
+
+    private fun showDetailBottomSheet(lokasi: Lokasi) {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_detail, null)
+        bottomSheetDialog.setContentView(view)
+
+        val nameTextView = view.findViewById<TextView>(R.id.tv_business_name)
+        val ratingBar = view.findViewById<RatingBar>(R.id.tv_rating)
+        val distanceTextView = view.findViewById<TextView>(R.id.tv_distance)
+        val statusTextView = view.findViewById<TextView>(R.id.tv_status)
+        val productImage = view.findViewById<ImageView>(R.id.iv_product_image)
+        nameTextView.text = lokasi.name
+        ratingBar.rating = lokasi.rating.toFloat()
+        distanceTextView.text = String.format("%.2f km", lokasi.distance)
+        statusTextView.text = if (lokasi.isOpen) "Open" else "Closed"
+        statusTextView.setTextColor(if (lokasi.isOpen) 0xFF4CAF50.toInt() else 0xFFF44336.toInt())
+        Glide.with(this)
+            .load(lokasi.imageUrl)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background)
+            )
+            .into(productImage)
+        bottomSheetDialog.show()
+    }
+
 }

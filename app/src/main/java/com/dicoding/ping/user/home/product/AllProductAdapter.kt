@@ -15,14 +15,19 @@ class AllProductAdapter(private var events: List<DataItem>, private val onItemCl
         var helper: Helper = Helper()
         val productImage: ImageView = itemView.findViewById(R.id.imageLogo)
         val productName: TextView = itemView.findViewById(R.id.namaDagangan)
+        //        val productPrice: TextView = itemView.findViewById(R.id.harga)
+//        val productRating: TextView = itemView.findViewById(R.id.rating)
         val productStatus: TextView = itemView.findViewById(R.id.status)
 
         fun bind(event: DataItem, onItemClick: (DataItem) -> Unit) {
             productName.text = event.name ?: "Unnamed Event"
-            productStatus.text = event.merchant?.status ?: "Unknown Status"
+//            productPrice.text = event.price ?: "Unknown Price"
+//            productRating.text = (event.merchant?.average_rating ?: "Unknown Rating").toString()
             if(event.merchant?.status == "tutup") {
+                productStatus.text = "Closed"
                 productStatus.setTextColor(itemView.context.resources.getColor(R.color.red))
             } else {
+                productStatus.text = "Open"
                 productStatus.setTextColor(itemView.context.resources.getColor(R.color.green))
             }
             Glide.with(itemView.context)
@@ -44,9 +49,11 @@ class AllProductAdapter(private var events: List<DataItem>, private val onItemCl
 
     override fun getItemCount(): Int = events.size
 
+    // fungsi untuk memperbarui data adapter
     fun updateData(newEvents: List<DataItem>) {
         events = newEvents
         notifyDataSetChanged()
     }
 }
+
 
