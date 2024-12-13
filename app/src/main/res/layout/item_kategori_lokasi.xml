@@ -1,83 +1,79 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
 
     <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
-        <!-- Food Image -->
+        <!-- Gambar Makanan -->
         <ImageView
-                android:id="@+id/iv_food_image"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_food"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"/>
+            android:id="@+id/iv_food_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_food"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"/>
 
-        <!-- Food Name -->
+        <!-- Nama Makanan -->
         <TextView
-                android:id="@+id/tv_food_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/iv_food_image"
-                android:layout_marginTop="8dp"
-                android:text="Sate-satean"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+            android:id="@+id/tv_food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_food_image"
+            android:layout_marginTop="8dp"
+            android:text="Sate-satean"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
 
-        <!-- Status (Open/Closed) -->
+        <!-- Status (Buka/Tutup) -->
         <TextView
-                android:id="@+id/tv_food_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_food_name"
-                android:layout_marginTop="4dp"
-                android:text="Open"
-                android:textSize="14sp"
-                android:textColor="#0BE462"/>
+            android:id="@+id/tv_food_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_food_name"
+            android:layout_marginTop="4dp"
+            android:text="Open"
+            android:textSize="14sp"
+            android:textColor="#0BE462"/>
 
-        <!-- Location Information and Details -->
+        <!-- Informasi Lokasi dan Detail -->
         <LinearLayout
-                android:id="@+id/ll_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_food_status"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+            android:id="@+id/ll_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_food_status"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
 
             <!-- Spacer -->
             <View
                 android:layout_width="16dp"
                 android:layout_height="0dp"/>
 
-            <!-- Spacer -->
-            <View
-                android:layout_width="16dp"
-                android:layout_height="0dp"/>
-
-            <!-- Rating Icon -->
+            <!-- Ikon Rating -->
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_star"/>
 
-            <!-- Rating Text  -->
+            <!-- Text Rating -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="4.5"
                 android:textSize="14sp"/>
+
         </LinearLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

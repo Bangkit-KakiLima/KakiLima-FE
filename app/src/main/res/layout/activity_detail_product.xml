@@ -1,230 +1,210 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
+    <!-- Konten Utama -->
+    <ScrollView
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- Toolbar -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp"
-                android:text="@string/detail_produk_title"
-                android:textColor="@android:color/white"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:paddingBottom="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/lyDetailProductTop">
-            <!-- Product Image -->
-            <ImageView
-                android:id="@+id/product_image"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_placeholder" />
+            android:orientation="vertical">
 
-            <!-- Product Name and Rating -->
+            <!-- Toolbar -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
+                android:background="?attr/colorPrimary"
+                android:elevation="4dp"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/default_product_name"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/detail_produk_title"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/product_detail_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Product Image -->
+                <ImageView
+                    android:id="@+id/product_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_placeholder" />
+
+                <!-- Product Name and Rating -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/product_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/default_product_name"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/progres_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/rating_icon"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:contentDescription="@string/rating_icon"
+                            android:src="@drawable/ic_star" />
+
+                        <TextView
+                            android:id="@+id/product_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/default_rating"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Merchant and Status -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/rating_icon"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:contentDescription="@string/rating_icon"
-                        android:src="@drawable/ic_star" />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_person1" />
 
-                    <TextView
-                        android:id="@+id/product_rating"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/default_rating"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/merchant_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/default_merchant_name"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/product_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/status_closed"
+                            android:textColor="@color/red"
+                            android:textSize="14sp" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <!-- Merchant Info -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/profile_picture"
-                    android:src="@drawable/ic_person1" />
-
-                <TextView
-                    android:id="@+id/merchant_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/default_merchant_name"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <!-- Status and Price -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/product_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/status_closed"
-                    android:textColor="#D32F2F"
-                    android:textSize="14sp" />
-
+                <!-- Product Price -->
                 <TextView
                     android:id="@+id/product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:text="@string/default_product_price"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"/>
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:visibility="visible" />
-        </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/txtLoadingMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Loading, please wait..."
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-        </FrameLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/lyDetailProductBottom">
-            <!-- Address Section with Location Icon -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
 
-                <!-- Location Icon -->
-                <ImageView
-                    android:id="@+id/location_icon"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/distance_icon"
-                    android:src="@drawable/ic_location" />
-
-                <!-- Address Text -->
+                <!-- Product Description -->
                 <TextView
-                    android:id="@+id/product_address"
+                    android:id="@+id/product_description_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/default_address"
+                    android:layout_marginTop="16dp"
+                    android:text="Description"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/product_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/default_description"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
+
+                <!-- Add to Cart Button -->
+                <Button
+                    android:id="@+id/add_to_cart_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/blue"
+                    android:text="@string/see_seller"
+                    android:textColor="@android:color/white" />
             </LinearLayout>
-
-            <!-- Product Description -->
-            <TextView
-                android:id="@+id/product_description_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/description_label"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/product_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/default_description"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <!-- Add to Cart Button -->
-            <Button
-                android:id="@+id/add_to_cart_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/blue"
-                android:text="@string/see_seller"
-                android:textColor="@android:color/white" />
         </LinearLayout>
+    </ScrollView>
+
+    <!-- Loading -->
+    <LinearLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/loading_spinner"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:indeterminate="true" />
+
+        <TextView
+            android:id="@+id/loading_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Loading, please wait..."
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
-</ScrollView>
-
+</FrameLayout>

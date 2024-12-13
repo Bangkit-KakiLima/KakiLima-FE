@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/homeFragment">
 
     <fragment
@@ -22,17 +23,24 @@
         android:id="@+id/editEmailFragment"
         android:name="com.example.app.FragmentEditEmail"
         android:label="Edit Email" >
-            <action
-               android:id="@+id/action_editEmail_to_verifyOtp"
-               app:destination="@id/verifyOtpFragment" />
+        <action
+            android:id="@+id/action_editEmail_to_verifyOtp"
+            app:destination="@id/verifyOtpFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/verifyOtpFragment"
         android:name="com.example.app.FragmentVerifyOtp"
         android:label="Verify OTP" >
-            <argument
-                 android:name="email"
-                 app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+
+        <fragment
+            android:id="@+id/changePasswordFragment"
+            android:name="com.dicoding.asclepius.profile.ChangePasswordFragment"
+            android:label="Ubah Password"
+            tools:layout="@layout/fragment_change_password" />
+
     </fragment>
 </navigation>

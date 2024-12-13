@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">P!NG</string>
+    <string name="app_name">Capstone Project</string>
 
     <!-- welcome -->
     <string name="tap_next">Tap Next</string>
@@ -47,7 +47,8 @@
     <string name="weather_match">Weather Match</string>
     <string name="food">Food</string>
     <string name="drink">Drink</string>
-    <string name="recommendations">Top Rated</string>
+    <string name="top_product">Top Product</string>
+    <string name="recommendations">Recommendation</string>
     <string name="profile_picture_description">profile_picture_description</string>
     <string name="all_product">All Product</string>
     <string name="click_here">Click Here</string>
@@ -56,6 +57,7 @@
     <string name="suhu">°C</string>
     <string name="city_name">Subang</string>
     <string name="location_icon">location icon</string>
+
 
     <!-- card -->
     <string name="nama_makanan">Soto</string>
@@ -102,7 +104,7 @@
     <string name="address_icon">Icon Address </string>
     <string name="profil">Profile </string>
     <string name="username">Rania Maulidina </string>
-    <string name="edit_profil">Edit Profile </string>
+    <string name="show_profil">Show Profile </string>
     <string name="change_email">Email </string>
     <string name="change_password">Change Password </string>
     <string name="no_handphone">No.Handphone </string>
@@ -123,12 +125,6 @@
     <string name="description_label">Deskription</string>
     <string name="default_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec magna a libero.</string>
     <string name="see_seller">See Seller</string>
-
-    <!-- Edit Address -->
-    <string name="street_name">Street Name</string>
-    <string name="city">City</string>
-    <string name="postal_code">Postal Code</string>
-    <string name="save">Save</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -218,6 +214,13 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+
+    <!-- Edit Address -->
+    <string name="street_name">Street Name</string>
+    <string name="city">City</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="save">Save</string>
+    <string name="loading_please_wait">Loading, please wait...</string>
 
 
 </resources>

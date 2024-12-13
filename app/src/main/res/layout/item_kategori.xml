@@ -1,56 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
-    <!-- Item Image -->
+    <!-- Gambar Item -->
     <ImageView
-                android:id="@+id/item_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_placeholder" />
+        android:id="@+id/item_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_placeholder" />
+
 
     <!-- Detail Item -->
     <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <!-- Item Name -->
+        <!-- Nama Item -->
         <TextView
-                android:id="@+id/item_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Item Name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black" />
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama Item"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
 
         <!-- Item Description -->
         <TextView
-                android:id="@+id/item_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Item Description"
-                android:textSize="14sp"
-                android:textColor="@android:color/black" />
+            android:id="@+id/item_description"
+            android:maxLines="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@android:color/black" />
 
-        <!-- Rating & Distance -->
+        <!-- Status (Buka/Tutup) -->
+        <TextView
+            android:id="@+id/item_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Buka"
+            android:textColor="#00C853"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Rating dan Harga -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <!-- Rating -->
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
 
-            <!-- Rating Icon -->
             <ImageView
                 android:id="@+id/item_rating_icon"
                 android:layout_width="16dp"
@@ -58,7 +78,6 @@
                 android:src="@drawable/ic_star"
                 android:contentDescription="Rating Icon" />
 
-            <!--Rating value -->
             <TextView
                 android:id="@+id/item_rating"
                 android:layout_width="wrap_content"
@@ -67,41 +86,22 @@
                 android:text="4.5"
                 android:textSize="14sp"
                 android:textColor="@android:color/black" />
-
-            <!-- Separator -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:text="•"
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray" />
         </LinearLayout>
 
-        <!-- Price -->
+        <!-- Harga -->
         <TextView
-                android:id="@+id/item_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Rp 10.000"
-                android:textSize="14sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/bg_harga"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:textStyle="bold" />
+            android:id="@+id/item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_full_corner"
+            android:gravity="end"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:text="Rp 15.000"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
-
-    <!-- Status (Open/Closed) -->
-    <TextView
-                android:id="@+id/item_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Open"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#00C853" />
 
 </LinearLayout>
