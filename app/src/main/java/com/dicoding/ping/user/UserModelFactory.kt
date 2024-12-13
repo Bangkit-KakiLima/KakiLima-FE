@@ -1,6 +1,5 @@
 package com.dicoding.ping.user
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 

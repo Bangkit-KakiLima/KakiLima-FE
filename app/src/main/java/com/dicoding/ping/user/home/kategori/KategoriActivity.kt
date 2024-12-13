@@ -1,12 +1,10 @@
-package com.dicoding.ping.kategori
+package com.dicoding.ping.user.home.kategori
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.ping.R
-import com.dicoding.ping.user.home.kategori.Kategori
-import com.dicoding.ping.user.home.kategori.KategoriAdapter
 
 class KategoriActivity : AppCompatActivity() {
 
