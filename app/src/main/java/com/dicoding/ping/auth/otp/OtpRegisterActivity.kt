@@ -157,7 +157,14 @@ class OtpRegisterActivity : AppCompatActivity() {
 
         otpBoxes.forEachIndexed { index, editText ->
             editText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     if (!s.isNullOrEmpty() && index < otpBoxes.size - 1) {
                         otpBoxes[index + 1].requestFocus()

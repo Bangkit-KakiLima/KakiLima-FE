@@ -2,6 +2,7 @@ package com.dicoding.ping.user.locations
 
 import LocationModel
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -57,16 +58,13 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityLokasiBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inisialisasi Toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        // Inisialisasi MapView
         mapView = findViewById(R.id.map_view)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
-        // Inisialisasi RecyclerView
         recyclerView = findViewById(R.id.recycler_view_places)
         recyclerView.setLayoutManager(LinearLayoutManager(this))
 
@@ -90,13 +88,9 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
             showMarkers(locations)
         }
 
-        // Setup BottomNavigationView
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-
-        // Set the default selected menu to "Location"
         bottomNavigationView.selectedItemId = R.id.location
 
-        // Listener untuk navigasi
         bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.home -> {
@@ -119,6 +113,7 @@ class LokasiActivity : AppCompatActivity(), OnMapReadyCallback {
         viewModel.getAllLocations()
     }
 
+    @SuppressLint("MissingPermission")
     private fun showMarkers(locations: List<LocationResponse>) {
         googleMap?.let { map ->
             val filteredLocations = if (!merchantName.isNullOrEmpty()) {

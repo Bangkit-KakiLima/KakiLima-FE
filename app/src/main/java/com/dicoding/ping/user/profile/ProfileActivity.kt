@@ -19,7 +19,6 @@ import com.dicoding.ping.user.UserModelFactory
 import com.dicoding.ping.user.UserRepository
 import com.dicoding.ping.user.home.MainActivity
 import com.dicoding.ping.user.locations.LokasiActivity
-import com.dicoding.ping.user.profile.address.EditAddressFragment
 import com.dicoding.ping.utils.SessionManager
 
 class ProfileActivity : AppCompatActivity() {

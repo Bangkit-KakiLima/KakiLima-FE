@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Capstone Project</string>
+    <string name="app_name">PING</string>
 
     <!-- welcome -->
     <string name="tap_next">Tap Next</string>

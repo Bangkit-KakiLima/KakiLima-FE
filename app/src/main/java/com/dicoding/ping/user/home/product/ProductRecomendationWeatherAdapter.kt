@@ -55,7 +55,7 @@ class ProductRecomendationWeatherAdapter(
 
     override fun getItemCount(): Int = events.size
 
-    fun updateData(newEvents: List<DataItemResponse>) {
+    fun updateData(newEvents: List<DataItem>) {
         events = newEvents
         notifyDataSetChanged()
     }

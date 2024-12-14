@@ -17,7 +17,12 @@ import com.dicoding.ping.user.profile.address.GetAddressResponse
 class AuthRepository(
     private val apiService: ApiService
 ) {
-    suspend fun register(username: String, email: String, password: String, role: String): RegisterResponse {
+    suspend fun register(
+        username: String,
+        email: String,
+        password: String,
+        role: String
+    ): RegisterResponse {
         val request = RegisterRequest(username, email, password, role)
         return apiService.register(request)
     }
@@ -42,7 +47,11 @@ class AuthRepository(
         return apiService.resendOtp(request)
     }
 
-    suspend fun resetPassword(otp_code: String, email: String, newPassword: String): ForgotPasswordResponse {
+    suspend fun resetPassword(
+        otp_code: String,
+        email: String,
+        newPassword: String
+    ): ForgotPasswordResponse {
         val request = ForgotPasswordRequest(otp_code, email, newPassword)
         return apiService.resetPassword(request)
     }

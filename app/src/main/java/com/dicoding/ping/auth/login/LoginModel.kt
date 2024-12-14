@@ -26,7 +26,7 @@ class LoginModel(private val repository: AuthRepository) : ViewModel() {
                         if (userData.result?.is_verified == true) {
                             userData.result.id?.let { sessionManager.saveUserId(it) }
                             userData.result.username?.let { sessionManager.saveUsername(it) }
-                            userData.result.email?.let { sessionManager.saveEmailUser(it) }
+                            userData.result.email?.let { sessionManager.saveEmail(it) }
                             userData.result.role?.let { sessionManager.saveRole(it) }
                             val address = repository.getAddres()
                             if (address != null) {

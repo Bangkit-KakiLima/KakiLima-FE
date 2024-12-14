@@ -72,11 +72,8 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 MotionEvent.ACTION_UP -> {
-                    // Kembalikan teks ke tampilan awal (tanpa warna biru dan underline)
                     binding.txtForgotPassword.text = SpannableString("Forgot Password?")
-                    binding.txtForgotPassword.performClick() // Panggil performClick untuk aksesibilitas
-
-                    // Navigasi ke halaman Forgot Password
+                    binding.txtForgotPassword.performClick()
                     val intent = Intent(this, ForgotPasswordActivity::class.java)
                     startActivity(intent)
                 }
@@ -88,7 +85,6 @@ class LoginActivity : AppCompatActivity() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
 
-                    // Ubah warna teks menjadi warna custom (#4DA0C1) dan tambahkan underline
                     val spannableHover = SpannableString("Sign Up")
                     spannableHover.setSpan(
                         ForegroundColorSpan(Color.parseColor("#4DA0C1")),
@@ -106,11 +102,9 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 MotionEvent.ACTION_UP -> {
-                    // Kembalikan teks ke tampilan awal (tanpa warna biru dan underline)
                     binding.txtSignUp.text = SpannableString("Sign Up")
-                    binding.txtSignUp.performClick() // Panggil performClick untuk aksesibilitas
+                    binding.txtSignUp.performClick()
 
-                    // Navigasi ke halaman Forgot Password
                     val intent = Intent(this, RegisterActivity::class.java)
                     startActivity(intent)
                 }
